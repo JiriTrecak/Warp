@@ -62,16 +62,45 @@ Warp can serialize almost any property you throw at it. You provide description,
 
 func propertyMap() -> [WRPProperty] {
      return [
-        // remote string "name" to local "name", must exist
+        // Bind remote string "name" to the same local "name", must exist
         WPRProperty(remote: "name", type: .String, optional: false),
-        // remote string "email_address" to local "email", optional
-        WPRProperty(remote: "email_address", local: "email")
+        
+        // Bind remote string "email_address" to local "email", optional
+        WPRProperty(remote: "email_address", bindTo: "email", type: .String),
+        
+        // Bind remote Bool "active" to local "active"
+        WPRProperty(remote: "active", type: .Bool),
+        
+        // Bind remote NSDate "created_at" to local "createdAt", must exist, specific date format
+        WPRProperty(remote: "created_at", bindTo: "createdAt", type: .Date, optional: false, format: "yyyy-MM-dd")
      ]
 }
 
 ```
 
-WIP
+This way, you can map all the properties - just combine initializer properies together. Now there are two **specific cases, that are very often needed**:
+
+```swift
+
+func propertyMap() -> [WRPProperty] {
+     return [
+         ...
+         // When the data for objects are deeper than on first level,
+         // you can use dot notation to flatten it:
+         // { "_geoloc" : { "lat" : 50, "lon" : 50 }} can be mapped as
+         WPRProperty(remote: "_geoloc.lat", bindTo: "latitude", type: .Double),
+         WPRProperty(remote: "_geoloc.lon", bindTo: "longitude", type: .Double),
+         
+         // Warp can also bind one property from multiple sources,
+         // which is excellent when you have, for example, multiple
+         // databases, each with different key. Specify primary key
+         // if there is chance and more of them can show at once and 
+         // one has priority:
+         WPRProperty(remotes: ["id", "objectId", "object_id"], bindTo: "userId", type: .Int),
+     ]
+}
+
+``` 
 
 **Map Relationships**
 

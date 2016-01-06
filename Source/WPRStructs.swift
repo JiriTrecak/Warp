@@ -49,11 +49,11 @@ struct WPRProperty {
     var optional : Bool = true
     var format : String?
     
-    init(remote : String, local : String, type : WRPPropertyType) {
+    init(remote : String, bindTo : String, type : WRPPropertyType) {
         
         self.remoteNames = [remote]
         self.masterRemoteName = remote
-        self.localName = local
+        self.localName = bindTo
         self.elementDataType = type
     }
     
@@ -76,33 +76,33 @@ struct WPRProperty {
     }
     
     
-    init(remote : String, local : String, type : WRPPropertyType, optional : Bool) {
+    init(remote : String, bindTo : String, type : WRPPropertyType, optional : Bool) {
         
         self.remoteNames = [remote]
         self.masterRemoteName = remote
-        self.localName = local
+        self.localName = bindTo
         self.elementDataType = type
         self.optional = optional
         self.format = nil
     }
     
     
-    init(remote : String, local : String, type : WRPPropertyType, optional : Bool, format : String?) {
+    init(remote : String, bindTo : String, type : WRPPropertyType, optional : Bool, format : String?) {
         
         self.remoteNames = [remote]
         self.masterRemoteName = remote
-        self.localName = local
+        self.localName = bindTo
         self.elementDataType = type
         self.optional = optional
         self.format = format
     }
     
     
-    init(remotes : [String], primaryRemote : String, local : String, type : WRPPropertyType) {
+    init(remotes : [String], primaryRemote : String, bindTo : String, type : WRPPropertyType) {
         
         self.remoteNames = remotes
         self.masterRemoteName = primaryRemote
-        self.localName = local
+        self.localName = bindTo
         self.elementDataType = type
         self.optional = false
         
@@ -113,11 +113,11 @@ struct WPRProperty {
     }
     
     
-    init(remotes : [String], primaryRemote : String, local : String, type : WRPPropertyType, format : String?) {
+    init(remotes : [String], primaryRemote : String, bindTo : String, type : WRPPropertyType, format : String?) {
         
         self.remoteNames = remotes
         self.masterRemoteName = primaryRemote
-        self.localName = local
+        self.localName = bindTo
         self.elementDataType = type
         self.optional = false
         self.format = format
