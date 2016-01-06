@@ -1,0 +1,43 @@
+
+# -------- Pods init
+
+# Disable all warnings in pods so the build is clean
+inhibit_all_warnings! 
+
+# Define CP Specs source
+#source 'https://github.com/CocoaPods/Specs.git'
+
+# Force iOS8+ platform
+platform :ios, '8.3'
+
+# Swift frameworks
+use_frameworks!
+
+# Integrate everything to targets
+target "Warp" do
+
+# -------- Frameworks / Networking
+
+pod 'Alamofire'
+
+
+# -------- Frameworks / Data storage
+
+
+
+# -------- Frameworks / UI
+
+pod 'HanekeSwift'
+
+
+# -------- Frameworks / Utilities
+
+end
+
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    puts "#{target.name}"
+  end
+end
+

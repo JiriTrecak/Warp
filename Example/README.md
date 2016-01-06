@@ -2,35 +2,21 @@
 [![Platforms OS X | iOS | tvos](https://img.shields.io/badge/Platforms-OS%20X%20%7C%20iOS-lightgray.svg?style=flat)](https://developer.apple.com/swift/)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
+# Warp Example 
 
-# Warp
+**I find most of the examples boring**. This is why I decided to build **full-fledged** application as example. It contains all you would expect from real application - UI, network, logic.. to show you how you can actually use the library. 
 
-TODO
+If you would like to use any part of the project for your personal projects, or use it as template if you are just starting with development, you are very welcome to do that. 
 
-> Too tired to read? That is understandable. That is why I made this example. You will find it little bit different from what you usually see - [check it out](https://github.com/JiriTrecak/Warp/tree/master/Example). Just download and run in XCode.
+Example uses pods which are checked in, so please **open Warp.xcworkspace** instead of .xcodeproj.
 
-
-
-## Do I need it?
-
-TODO
+> If you do fullsearch for `WRPObject`, you will find all the tricks in the code.
 
 
-## What will I get?
+## Love for contributors!
 
-TODO
+The example is connected to GitHub open API and feeds the data in real-time. I made the example so it lists all the contributors to this repository. **It is basically Hall of Fame**. If you want to be in, lets build the best library together.
 
-## Installation
-
-TODO
-
-## Supported Features
-
-TODO
-
-
-## Contribute
-I will gladly accept Pull Requests (and I encourage you to do so). If you encounter any bug or you have enhancement that you would like to see, please open an issue. Please make sure you target your PR against Development branch.
 
 ## Contact me
 
@@ -41,6 +27,7 @@ I will gladly accept Pull Requests (and I encourage you to do so). If you encoun
 Or, if you would like to know me better, check out my portfolio.
 
 - [jiritrecak.com](http://jiritrecak.com/ "My personal website") 
+
 
 ##Licence
 

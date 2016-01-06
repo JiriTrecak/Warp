@@ -1,0 +1,13 @@
+//
+//  InfoPlist.strings (English)
+//  Warp Example Project
+//
+//  Created by Jiří Třečák
+//  Copyright © 2016 Jiri Trecak. All rights reserved.
+//
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// MARK: - Main
+
+"CFBundleDisplayName" = "Warp";
+"CFBundleName" = "Warp";

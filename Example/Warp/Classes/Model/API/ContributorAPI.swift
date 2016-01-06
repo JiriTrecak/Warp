@@ -1,0 +1,90 @@
+//
+//  ContributorAPI.swift
+//  Warp Example Project
+//
+//  Created by Jiří Třečák
+//  Copyright © 2016 Jiri Trecak. All rights reserved.
+//
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+//MARK: - Import
+
+import Foundation
+import Alamofire
+
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+//MARK: - Definitions
+
+private let BASE_URL_CONTRIBUTORS : String = "https://api.github.com/repos/JiriTrecak/Warp/contributors"
+
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// MARK: - Protocols
+
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// MARK: - Implementation
+
+// Declare variable to store singleton into
+private let _sharedObject = ContributorAPI()
+
+class ContributorAPI {
+    
+    // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    // MARK: - Properties
+    
+    class var sharedInstance: ContributorAPI {
+        return _sharedObject;
+    }
+    
+    
+    // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    // MARK: - Public
+    
+    func getContributors(handler : (contributors : [Contributor]?, error : NSError?) -> ()) {
+        
+        Alamofire.request(.GET, BASE_URL_CONTRIBUTORS, parameters: nil, encoding: ParameterEncoding.JSON, headers: nil)
+            .responseJSON { response in
+                
+                if let JSON = response.result.value as? [NSDictionary] {
+                    
+                    // Create contributors
+                    var output : [Contributor] = []
+                    JSON.forEach({ (data) -> () in
+                        output.append(Contributor(fromDictionary: data))
+                    })
+                    
+                    // Notify caller
+                    handler(contributors: output, error: nil)
+                } else {
+                    handler(contributors: nil, error: response.result.error)
+                }
+        }
+    }
+    
+    
+    func updateContributor(contributor : Contributor, handler : (contributor : Contributor?, error : NSError?) -> ()) {
+        
+        Alamofire.request(.GET, contributor.detailURL, parameters: nil, encoding: ParameterEncoding.JSON, headers: nil)
+            .responseJSON { response in
+                
+                if let JSON = response.result.value as? NSDictionary {
+                    
+                    // Update contributor
+                    contributor.updateWithDictionary(JSON)
+                    
+                    // Notify caller
+                    handler(contributor: contributor, error: nil)
+                } else {
+                    handler(contributor: nil, error: response.result.error)
+                }
+        }
+    }
+}
+
+
+
+
+
+
