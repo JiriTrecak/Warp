@@ -32,7 +32,7 @@ import Foundation
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 //MARK: - Structures
 
-struct WRPProperty {
+public struct WRPProperty {
     
     // All remote names that can be used as source of property content
     var remoteNames : [String]
@@ -48,7 +48,7 @@ struct WRPProperty {
     var optional : Bool = true
     var format : String?
     
-    init(remote : String, bindTo : String, type : WRPPropertyType) {
+    public init(remote : String, bindTo : String, type : WRPPropertyType) {
         
         self.remoteNames = [remote]
         self.masterRemoteName = remote
@@ -56,7 +56,7 @@ struct WRPProperty {
         self.elementDataType = type
     }
     
-    init(remote : String, type : WRPPropertyType) {
+    public init(remote : String, type : WRPPropertyType) {
         
         self.remoteNames = [remote]
         self.masterRemoteName = remote
@@ -65,7 +65,7 @@ struct WRPProperty {
     }
     
     
-    init(remote : String, type : WRPPropertyType, optional : Bool) {
+    public init(remote : String, type : WRPPropertyType, optional : Bool) {
         
         self.optional = optional
         self.remoteNames = [remote]
@@ -75,7 +75,7 @@ struct WRPProperty {
     }
     
     
-    init(remote : String, bindTo : String, type : WRPPropertyType, optional : Bool) {
+    public init(remote : String, bindTo : String, type : WRPPropertyType, optional : Bool) {
         
         self.remoteNames = [remote]
         self.masterRemoteName = remote
@@ -86,7 +86,7 @@ struct WRPProperty {
     }
     
     
-    init(remote : String, bindTo : String, type : WRPPropertyType, optional : Bool, format : String?) {
+    public init(remote : String, bindTo : String, type : WRPPropertyType, optional : Bool, format : String?) {
         
         self.remoteNames = [remote]
         self.masterRemoteName = remote
@@ -97,7 +97,7 @@ struct WRPProperty {
     }
     
     
-    init(remotes : [String], primaryRemote : String, bindTo : String, type : WRPPropertyType) {
+    public init(remotes : [String], primaryRemote : String, bindTo : String, type : WRPPropertyType) {
         
         self.remoteNames = remotes
         self.masterRemoteName = primaryRemote
@@ -112,7 +112,7 @@ struct WRPProperty {
     }
     
     
-    init(remotes : [String], primaryRemote : String, bindTo : String, type : WRPPropertyType, format : String?) {
+    public init(remotes : [String], primaryRemote : String, bindTo : String, type : WRPPropertyType, format : String?) {
         
         self.remoteNames = remotes
         self.masterRemoteName = primaryRemote
@@ -129,7 +129,7 @@ struct WRPProperty {
 }
 
 
-struct WRPRelation {
+public struct WRPRelation {
     
     var remoteName : String
     var localName : String
@@ -139,7 +139,7 @@ struct WRPRelation {
     var inverseRelationshipType : WRPRelationType
     var optional : Bool = true
     
-    init(remote : String, bindTo : String, inverseBindTo : String, modelClass : WRPObject.Type, optional : Bool, relationType : WRPRelationType, inverseRelationType : WRPRelationType) {
+    public init(remote : String, bindTo : String, inverseBindTo : String, modelClass : WRPObject.Type, optional : Bool, relationType : WRPRelationType, inverseRelationType : WRPRelationType) {
         
         self.remoteName = remote
         self.localName = bindTo

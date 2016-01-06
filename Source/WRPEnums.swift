@@ -32,7 +32,7 @@ import Foundation
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 //MARK: - Enums
 
-enum WRPPropertyType {
+public enum WRPPropertyType {
     case String
     case Number
     case Bool
@@ -51,12 +51,12 @@ enum WRPPropertyAssignement {
     case Any
 }
 
-enum WRPRelationType {
+public enum WRPRelationType {
     case ToOne
     case ToMany
 }
 
-enum WRPSerializationOption {
+public enum WRPSerializationOption {
     case None
     case IncludeNullProperties
 }

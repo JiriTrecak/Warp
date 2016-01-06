@@ -36,25 +36,25 @@ extension NSMutableDictionary {
     
     
     /**
-    *	Set an object for the property identified by a given key path to a given value.
-    *
-    *	@param	object                  The object for the property identified by _keyPath_.
-    *	@param	keyPath                 A key path of the form _relationship.property_ (with one or more relationships): for example “department.name” or “department.manager.lastName.”
-    */
+     *	Set an object for the property identified by a given key path to a given value.
+     *
+     *	@param	object                  The object for the property identified by _keyPath_.
+     *	@param	keyPath                 A key path of the form _relationship.property_ (with one or more relationships): for example “department.name” or “department.manager.lastName.”
+     */
     func setObject(object : AnyObject!, forKeyPath : String) {
         
         self.setObject(object, onObject : self, forKeyPath: forKeyPath, createIntermediates: true, replaceIntermediates: true);
     }
-
-
+    
+    
     /**
-    *	Set an object for the property identified by a given key path to a given value, with optional parameters to control creation and replacement of intermediate objects.
-    *
-    *	@param	object                  The object for the property identified by _keyPath_.
-    *	@param	keyPath                 A key path of the form _relationship.property_ (with one or more relationships): for example “department.name” or “department.manager.lastName.”
-    *	@param	createIntermediates     Intermediate dictionaries defined within the key path that do not currently exist in the receiver are created.
-    *	@param	replaceIntermediates    Intermediate objects encountered in the key path that are not a direct subclass of `NSDictionary` are replaced.
-    */
+     *	Set an object for the property identified by a given key path to a given value, with optional parameters to control creation and replacement of intermediate objects.
+     *
+     *	@param	object                  The object for the property identified by _keyPath_.
+     *	@param	keyPath                 A key path of the form _relationship.property_ (with one or more relationships): for example “department.name” or “department.manager.lastName.”
+     *	@param	createIntermediates     Intermediate dictionaries defined within the key path that do not currently exist in the receiver are created.
+     *	@param	replaceIntermediates    Intermediate objects encountered in the key path that are not a direct subclass of `NSDictionary` are replaced.
+     */
     func setObject(object : AnyObject, onObject : AnyObject, forKeyPath : String, createIntermediates: Bool, replaceIntermediates: Bool) {
         
         // Path delimiter = .
@@ -92,14 +92,14 @@ extension NSMutableDictionary {
                     return;
                 }
                 
-            // If it does and it is dictionary, create mutable copy and assign new node there
+                // If it does and it is dictionary, create mutable copy and assign new node there
             } else if currentObject is NSDictionary {
                 
                 let newNode : NSMutableDictionary = NSMutableDictionary(dictionary: currentObject as! [NSObject : AnyObject]);
                 previousReplacement.setObject(newNode, forKey: path);
                 previousReplacement = newNode;
                 
-            // It exists but it is not NSDictionary, so we replace it, if allowed, or end
+                // It exists but it is not NSDictionary, so we replace it, if allowed, or end
             } else {
                 
                 reachedDictionaryLeaf = true;
