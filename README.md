@@ -5,20 +5,77 @@
 
 # Warp
 
-TODO
+Insanely easy-to-use, extremely powerful swift object, that will make creation of your data models breeze. 
 
 > Too tired to read? That is understandable. That is why I made this example. You will find it little bit different from what you usually see - [check it out](https://github.com/JiriTrecak/Warp/tree/master/Example). Just download and run in XCode.
 
 
 
-## Do I need it?
+## Do I need it? (most probably)
 
-TODO
+There is one thing that most applications have in common - they are in **dire need of downloading raw data, and creating objects out of them**. What is NOT that common is that you need whole database to store them - simply having them as objects in memory would be sufficient.
+
+If you are like 95% people who just want to download and present data, and use them from memory, please continue, and enjoy. 
+
+If you need whole databases with search, fetch control and more, then this is not for you (use Realm, or CD - though facade support for them is also coming). But you can check my [other library](https://github.com/JiriTrecak/Laurine "Laurine Generator") - you will use that for sure. 
+
+*Oh and drop me a message within the time that you will save by using this library.*
 
 
-## What will I get?
+## Show me the good stuff
 
-TODO
+Enough talking, lets make our model. You start by extending any class to be child of `WRPObject`:
+
+
+```swift
+class User : WRPObject
+```
+
+And.. that is it. Your User just gained supowerpowers - it can serialize, deserialize, has support of remote properties and relationships and more sweetness, that you will find below.
+
+Lets imagine you have following object definition:
+
+```swift
+class User : WRPObject {
+
+	// Properties
+   var name : String!
+   var email : String?
+   var userId : Int = 0
+   var active : Bool = true
+   var createdAt : NSDate!
+   var latitude : Double = 0
+   var longitude : Double = 0
+   
+   // Relationships
+   var messages : [Message] = []
+}
+```
+
+In order for Warp to know how to get your data, you provide only two methods:
+
+**Map Properties**
+
+Warp can serialize almost any property you throw at it. You provide description, Warp handles the rest. What Warp does differently than any other mapping system is that the description covers all common scenarios that you can encounter. 
+
+```swift
+
+func propertyMap() -> [WRPProperty] {
+     return [
+        // remote string "name" to local "name", must exist
+        WPRProperty(remote: "name", type: .String, optional: false),
+        // remote string "email_address" to local "email", optional
+        WPRProperty(remote: "email_address", local: "email")
+     ]
+}
+
+```
+
+WIP
+
+**Map Relationships**
+
+WIP
 
 ## Installation
 

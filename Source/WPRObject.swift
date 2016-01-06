@@ -342,7 +342,7 @@ class WPRObject : NSObject {
     }
     
     
-    private func setValue(type: VariableAssignement, value : AnyObject?, forKey key: String, optional: Bool, temporaryOptional: Bool) -> Bool {
+    private func setValue(type: WRPPropertyAssignement, value : AnyObject?, forKey key: String, optional: Bool, temporaryOptional: Bool) -> Bool {
         
         if ((optional || temporaryOptional) && value == nil) {
             return false
@@ -515,13 +515,13 @@ class WPRObject : NSObject {
     }
     
     
-    func toDictionaryWithSerializationOption(option : SerializationOption) -> NSDictionary {
+    func toDictionaryWithSerializationOption(option : WPRSerializationOption) -> NSDictionary {
         
         return self.toDictionaryWithSerializationOption(option, without: [])
     }
     
     
-    func toDictionaryWithSerializationOption(option: SerializationOption, without : Array<String>) -> NSDictionary {
+    func toDictionaryWithSerializationOption(option: WPRSerializationOption, without : Array<String>) -> NSDictionary {
         
         // Create output
         let outputParams : NSMutableDictionary = NSMutableDictionary()
@@ -539,7 +539,7 @@ class WPRObject : NSObject {
             
             // Check for nil, if it is nil, we add <NSNull> object instead of value
             if (actualValue == nil) {
-                if (option == SerializationOption.IncludeNullProperties) {
+                if (option == WPRSerializationOption.IncludeNullProperties) {
                     outputParams.setObject(NSNull(), forKeyPath: element.remoteNames.first!)
                 }
             } else {
@@ -571,7 +571,7 @@ class WPRObject : NSObject {
                 } else {
                     
                     // Add null value for relationship if needed
-                    if (option == SerializationOption.IncludeNullProperties) {
+                    if (option == WPRSerializationOption.IncludeNullProperties) {
                         outputParams.setObject(NSNull(), forKey: element.remoteName)
                     }
                 }
@@ -582,7 +582,7 @@ class WPRObject : NSObject {
                 
                 // Check for nil, if it is nil, we add <NSNull> object instead of value
                 if (actualValue == nil) {
-                    if (option == SerializationOption.IncludeNullProperties) {
+                    if (option == WPRSerializationOption.IncludeNullProperties) {
                         outputParams.setObject(NSNull(), forKey: element.remoteName)
                     }
                 } else {

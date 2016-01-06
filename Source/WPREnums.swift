@@ -33,7 +33,7 @@ import Foundation
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 //MARK: - Enums
 
-enum VariableDataType {
+enum WRPPropertyType {
     case String
     case Number
     case Bool
@@ -45,19 +45,19 @@ enum VariableDataType {
     case Dictionary
 }
 
-enum VariableAssignement {
+enum WRPPropertyAssignement {
     case Int
     case Double
     case Float
     case Any
 }
 
-enum RelationshipType {
+enum WRPRelationType {
     case ToOne
     case ToMany
 }
 
-enum SerializationOption {
+enum WPRSerializationOption {
     case None
     case IncludeNullProperties
 }

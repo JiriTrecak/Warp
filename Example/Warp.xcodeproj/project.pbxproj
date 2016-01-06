@@ -19,10 +19,10 @@
 		0B3FCC9B1C343DCE00C46584 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0B3FCC861C343DCE00C46584 /* Localizable.strings */; };
 		0B3FCC9C1C343DCE00C46584 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B3FCC891C343DCE00C46584 /* LaunchScreen.storyboard */; };
 		0B3FCC9D1C343DCE00C46584 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B3FCC8A1C343DCE00C46584 /* Main.storyboard */; };
-		0B8146C11C3D145F0006BB4E /* WPREnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8146BD1C3D145F0006BB4E /* WPREnums.swift */; };
-		0B8146C21C3D145F0006BB4E /* WPRExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8146BE1C3D145F0006BB4E /* WPRExtensions.swift */; };
-		0B8146C31C3D145F0006BB4E /* WPRObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8146BF1C3D145F0006BB4E /* WPRObject.swift */; };
-		0B8146C41C3D145F0006BB4E /* WPRStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8146C01C3D145F0006BB4E /* WPRStructs.swift */; };
+		0B8146DD1C3D362C0006BB4E /* WPREnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8146D91C3D362C0006BB4E /* WPREnums.swift */; };
+		0B8146DE1C3D362C0006BB4E /* WPRExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8146DA1C3D362C0006BB4E /* WPRExtensions.swift */; };
+		0B8146DF1C3D362C0006BB4E /* WPRObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8146DB1C3D362C0006BB4E /* WPRObject.swift */; };
+		0B8146E01C3D362C0006BB4E /* WPRStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8146DC1C3D362C0006BB4E /* WPRStructs.swift */; };
 		754863C9A5EBC0107764CDEF /* Pods_Warp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D99C5DC70897B5445392F71 /* Pods_Warp.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,10 +41,10 @@
 		0B3FCC871C343DCE00C46584 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0B3FCC891C343DCE00C46584 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B3FCC8A1C343DCE00C46584 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		0B8146BD1C3D145F0006BB4E /* WPREnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPREnums.swift; sourceTree = "<group>"; };
-		0B8146BE1C3D145F0006BB4E /* WPRExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPRExtensions.swift; sourceTree = "<group>"; };
-		0B8146BF1C3D145F0006BB4E /* WPRObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPRObject.swift; sourceTree = "<group>"; };
-		0B8146C01C3D145F0006BB4E /* WPRStructs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WPRStructs.swift; sourceTree = "<group>"; };
+		0B8146D91C3D362C0006BB4E /* WPREnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WPREnums.swift; path = ../../../../../../Source/WPREnums.swift; sourceTree = "<group>"; };
+		0B8146DA1C3D362C0006BB4E /* WPRExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WPRExtensions.swift; path = ../../../../../../Source/WPRExtensions.swift; sourceTree = "<group>"; };
+		0B8146DB1C3D362C0006BB4E /* WPRObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WPRObject.swift; path = ../../../../../../Source/WPRObject.swift; sourceTree = "<group>"; };
+		0B8146DC1C3D362C0006BB4E /* WPRStructs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WPRStructs.swift; path = ../../../../../../Source/WPRStructs.swift; sourceTree = "<group>"; };
 		0BF9E6281BF2333D0055C0D8 /* Warp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Warp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D99C5DC70897B5445392F71 /* Pods_Warp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Warp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D672C1F28A30AE8FC2BEB96D /* Pods-Warp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Warp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Warp/Pods-Warp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -138,10 +138,10 @@
 		0B3FCC751C343DCE00C46584 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				0B8146BD1C3D145F0006BB4E /* WPREnums.swift */,
-				0B8146BE1C3D145F0006BB4E /* WPRExtensions.swift */,
-				0B8146BF1C3D145F0006BB4E /* WPRObject.swift */,
-				0B8146C01C3D145F0006BB4E /* WPRStructs.swift */,
+				0B8146D91C3D362C0006BB4E /* WPREnums.swift */,
+				0B8146DA1C3D362C0006BB4E /* WPRExtensions.swift */,
+				0B8146DB1C3D362C0006BB4E /* WPRObject.swift */,
+				0B8146DC1C3D362C0006BB4E /* WPRStructs.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -369,15 +369,15 @@
 			files = (
 				0B3FCC8B1C343DCE00C46584 /* ContributorsVC.swift in Sources */,
 				0B3FCC901C343DCE00C46584 /* ContributorAPI.swift in Sources */,
-				0B8146C11C3D145F0006BB4E /* WPREnums.swift in Sources */,
+				0B8146DD1C3D362C0006BB4E /* WPREnums.swift in Sources */,
 				0B3FCC8E1C343DCE00C46584 /* Localizations.swift in Sources */,
-				0B8146C31C3D145F0006BB4E /* WPRObject.swift in Sources */,
+				0B8146DF1C3D362C0006BB4E /* WPRObject.swift in Sources */,
 				0B3FCC8F1C343DCE00C46584 /* AppDelegate.swift in Sources */,
 				0B3FCC8C1C343DCE00C46584 /* DetailVC.swift in Sources */,
-				0B8146C41C3D145F0006BB4E /* WPRStructs.swift in Sources */,
+				0B8146E01C3D362C0006BB4E /* WPRStructs.swift in Sources */,
 				0B3FCC951C343DCE00C46584 /* Contributor.swift in Sources */,
 				0B3FCC961C343DCE00C46584 /* ContributorCell.swift in Sources */,
-				0B8146C21C3D145F0006BB4E /* WPRExtensions.swift in Sources */,
+				0B8146DE1C3D362C0006BB4E /* WPRExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

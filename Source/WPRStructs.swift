@@ -45,65 +45,65 @@ struct WPRProperty {
     var localName : String
     
     // Data type of the property
-    var elementDataType : VariableDataType
+    var elementDataType : WRPPropertyType
     var optional : Bool = true
     var format : String?
     
-    init(remoteName : String, localName : String, elementDataType : VariableDataType) {
+    init(remote : String, local : String, type : WRPPropertyType) {
         
-        self.remoteNames = [remoteName]
-        self.masterRemoteName = remoteName
-        self.localName = localName
-        self.elementDataType = elementDataType
+        self.remoteNames = [remote]
+        self.masterRemoteName = remote
+        self.localName = local
+        self.elementDataType = type
     }
     
-    init(remoteName : String, elementDataType : VariableDataType) {
+    init(remote : String, type : WRPPropertyType) {
         
-        self.remoteNames = [remoteName]
-        self.masterRemoteName = remoteName
-        self.localName = remoteName
-        self.elementDataType = elementDataType
+        self.remoteNames = [remote]
+        self.masterRemoteName = remote
+        self.localName = remote
+        self.elementDataType = type
     }
     
     
-    init(remoteName : String, elementDataType : VariableDataType, optional : Bool) {
+    init(remote : String, type : WRPPropertyType, optional : Bool) {
         
         self.optional = optional
-        self.remoteNames = [remoteName]
-        self.masterRemoteName = remoteName
-        self.localName = remoteName
-        self.elementDataType = elementDataType
+        self.remoteNames = [remote]
+        self.masterRemoteName = remote
+        self.localName = remote
+        self.elementDataType = type
     }
     
     
-    init(remoteName : String, localName : String, elementDataType : VariableDataType, optional : Bool) {
+    init(remote : String, local : String, type : WRPPropertyType, optional : Bool) {
         
-        self.remoteNames = [remoteName]
-        self.masterRemoteName = remoteName
-        self.localName = localName
-        self.elementDataType = elementDataType
+        self.remoteNames = [remote]
+        self.masterRemoteName = remote
+        self.localName = local
+        self.elementDataType = type
         self.optional = optional
         self.format = nil
     }
     
     
-    init(remoteName : String, localName : String, elementDataType : VariableDataType, optional : Bool, format : String?) {
+    init(remote : String, local : String, type : WRPPropertyType, optional : Bool, format : String?) {
         
-        self.remoteNames = [remoteName]
-        self.masterRemoteName = remoteName
-        self.localName = localName
-        self.elementDataType = elementDataType
+        self.remoteNames = [remote]
+        self.masterRemoteName = remote
+        self.localName = local
+        self.elementDataType = type
         self.optional = optional
         self.format = format
     }
     
     
-    init(remoteNames : [String], masterRemoteName : String, localName : String, elementDataType : VariableDataType) {
+    init(remotes : [String], primaryRemote : String, local : String, type : WRPPropertyType) {
         
-        self.remoteNames = remoteNames
-        self.masterRemoteName = masterRemoteName
-        self.localName = localName
-        self.elementDataType = elementDataType
+        self.remoteNames = remotes
+        self.masterRemoteName = primaryRemote
+        self.localName = local
+        self.elementDataType = type
         self.optional = false
         
         // Remote names cannot be null - if there is such case, just force masterRemoteName to be remote name
@@ -113,12 +113,12 @@ struct WPRProperty {
     }
     
     
-    init(remoteNames : [String], masterRemoteName : String, localName : String, elementDataType : VariableDataType, format : String?) {
+    init(remotes : [String], primaryRemote : String, local : String, type : WRPPropertyType, format : String?) {
         
-        self.remoteNames = remoteNames
-        self.masterRemoteName = masterRemoteName
-        self.localName = localName
-        self.elementDataType = elementDataType
+        self.remoteNames = remotes
+        self.masterRemoteName = primaryRemote
+        self.localName = local
+        self.elementDataType = type
         self.optional = false
         self.format = format
         
@@ -136,32 +136,33 @@ struct WPRRelation {
     var localName : String
     var className : WPRObject.Type
     var inverseName : String
-    var relationshipType : RelationshipType
-    var inverseRelationshipType : RelationshipType
+    var relationshipType : WRPRelationType
+    var inverseRelationshipType : WRPRelationType
     var optional : Bool = true
     
-    init(remoteName : String, localName : String, inverseName : String, className : WPRObject.Type, optional : Bool, relationshipType : RelationshipType, inverseRelationshipType : RelationshipType) {
+    init(remote : String, bindTo : String, inverseBindTo : String, modelClass : WPRObject.Type, optional : Bool, relationType : WRPRelationType, inverseRelationType : WRPRelationType) {
         
-        self.remoteName = remoteName
-        self.localName = localName
-        self.className = className
-        self.inverseName = inverseName
-        self.relationshipType = relationshipType
-        self.inverseRelationshipType = inverseRelationshipType
+        self.remoteName = remote
+        self.localName = bindTo
+        self.inverseName = inverseBindTo
+        self.className = modelClass
+        self.relationshipType = relationType
+        self.inverseRelationshipType = inverseRelationType
         self.optional = optional
     }
 }
 
 
 struct AnyKey: Hashable {
+    
     private let underlying: Any
     private let hashValueFunc: () -> Int
     private let equalityFunc: (Any) -> Bool
     
     init<T: Hashable>(_ key: T) {
-        underlying = key
         // Capture the key's hashability and equatability using closures.
         // The Key shares the hash of the underlying value.
+        underlying = key
         hashValueFunc = { key.hashValue }
         
         // The Key is equal to a Key of the same underlying type,

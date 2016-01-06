@@ -37,14 +37,14 @@ class Contributor : WPRObject {
     override func propertyMap() -> [WPRProperty] {
         
         return [
-            WPRProperty(remoteName: "login", localName: "username", elementDataType: .String),
-            WPRProperty(remoteName: "avatar_url", localName: "avatarURL", elementDataType: .String),
-            WPRProperty(remoteName: "html_url", localName: "githubURL", elementDataType: .String),
-            WPRProperty(remoteName: "url", localName: "detailURL", elementDataType: .String),
-            WPRProperty(remoteName: "contributions", elementDataType: .Int),
-            WPRProperty(remoteName: "followers", elementDataType: .Int),
-            WPRProperty(remoteName: "following", elementDataType: .Int),
-            WPRProperty(remoteName: "public_repos", localName: "repositories", elementDataType: .Int)
+            WPRProperty(remote: "login", local: "username", type: .String),
+            WPRProperty(remote: "avatar_url", local: "avatarURL", type: .String),
+            WPRProperty(remote: "html_url", local: "githubURL", type: .String),
+            WPRProperty(remote: "url", local: "detailURL", type: .String),
+            WPRProperty(remote: "contributions", type: .Int),
+            WPRProperty(remote: "followers", type: .Int),
+            WPRProperty(remote: "following", type: .Int),
+            WPRProperty(remote: "public_repos", local: "repositories", type: .Int)
         ]
     }
 }
