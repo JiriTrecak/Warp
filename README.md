@@ -5,7 +5,7 @@
 
 # Warp
 
-Insanely easy-to-use, extremely powerful swift object, that will make creation of your data models breeze. 
+Insanely easy-to-use, extremely powerful swift magic, that will make creation of your data models breeze. 
 
 > Too tired to read? That is understandable. That is why I made this example. You will find it little bit different from what you usually see - [check it out](https://github.com/JiriTrecak/Warp/tree/master/Example). Just download and run in XCode.
 
@@ -185,12 +185,23 @@ Important note: objects are serialized using REMOTE keys, so serialization outpu
 
 ## Installation
 
-TODO
+For now, please download /source and just append it to your project. I am working on CocoaPods / Carthage / SPM at the moment.
 
 ## Supported Features
 
-TODO
+Warp should suit most of developers, because it covers all the basic stuff. That being said, there are still things missing to have full coverage. Here is the full list of features that will Warp contain once it is complete:
 
+- [x] Property mapping
+- [x] Relationship mapping
+- [x] Nesting + dot notation mapping
+- [x] Serialization
+- [x] Deserialization
+- [ ] Debugging
+- [ ] 100% test converage
+- [ ] Pre / in / post generation closures
+- [ ] Instalators (Cocoapods, Carthage, SPM)
+- [ ] Protocoled version, so it be used as mapper for CoreData and Realm
+- [ ] Tool for automatic generation of model, including network requests, from .json file
 
 ## Contribute
 I will gladly accept Pull Requests (and I encourage you to do so). If you encounter any bug or you have enhancement that you would like to see, please open an issue. Please make sure you target your PR against Development branch.
@@ -209,7 +220,7 @@ Or, if you would like to know me better, check out my portfolio.
 
 The MIT License (MIT)
 
-Copyright (c) 2015 Jiří Třečák
+Copyright (c) 2016 Jiří Třečák
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
