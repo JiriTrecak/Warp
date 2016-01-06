@@ -5,15 +5,15 @@
 
 # Warp
 
-Insanely easy-to-use, extremely powerful swift magic, that will make creation of your data models breeze. 
+Insanely easy-to-use, extremely powerful swift magic, that will make the creation of your data models breeze. 
 
-> Too tired to read? That is understandable. That is why I made this example. You will find it little bit different from what you usually see - [check it out](https://github.com/JiriTrecak/Warp/tree/master/Example). Just download and run in XCode.
+> Too tired to read? That is understandable. That is why I made this example. You will find it a little bit different from what you usually see - [check it out](https://github.com/JiriTrecak/Warp/tree/master/Example). Just download and run in XCode.
 
 
 
 ## Do I need it? (most probably)
 
-There is one thing that most applications have in common - they are in **dire need of downloading raw data, and creating objects out of them**. What is NOT that common is that you need whole database to store them - simply having them as objects in memory would be sufficient.
+There is one thing that most applications have in common - they are in **dire need of downloading raw data, and creating objects out of them**. What is NOT that common is that you need the whole database to store them - simply having them as objects in memory would be sufficient.
 
 If you are like 95% people who just want to download and present data, and use them from memory, please continue, and enjoy. 
 
@@ -31,9 +31,9 @@ Enough talking, lets make our model. You start by extending any class to be chil
 class User : WRPObject
 ```
 
-And.. that is it. Your User just gained supowerpowers - it can serialize, deserialize, has support of remote properties and relationships and more sweetness, that you will find below.
+And.. that is it. Your User just gained superpowers - it can serialize, deserialize, has the support of remote properties and relationships and more sweetness, that you will find below.
 
-Lets imagine you have following object definition:
+Let's imagine you have following object definition:
 
 ```swift
 class User : WRPObject {
@@ -56,7 +56,7 @@ In order for Warp to know how to get your data, you provide only two methods:
 
 **Map Properties**
 
-Warp can serialize almost any property you throw at it. You provide description, Warp handles the rest. What Warp does differently than any other mapping system is that the description covers all common scenarios that you can encounter, no need for some insane hacks. 
+Warp can serialize almost any property you throw at it. You provide a description, Warp handles the rest. What Warp does differently than any other mapping system is that the description covers all common scenarios that you can encounter, no need for some insane hacks. 
 
 ```swift
 
@@ -103,7 +103,7 @@ func propertyMap() -> [WRPProperty] {
 
 Objects are nice and everything, but usually, when you fetch some data from your REST point, you would like to **create whole chain of objects**. 
 
-User can, for example, have messages that you get in one call. **Warp supports just that**, and as an icing on the cake, it can create relations between objects, even with inverse references:
+The user can, for example, have messages that you get in one call. **Warp supports just that**, and as an icing on the cake, it can create relations between objects, even with inverse references:
 
 ```swift
 
@@ -111,7 +111,7 @@ func relationMap() -> [WRPRelation] {
      return [
         // We create relationship for messages:
         // Bind remote "messages" to local "messages". Each message has property "user",
-        // which we mark as inverse. We can have multiple messages, therefore .ToMany relationship is used. Each message has only one user,
+        // which we mark as the inverse. We can have multiple messages, therefore .ToMany relationship is used. Each message has only one user,
         // therefore .ToOne is used in inverse.
         WPRRelation(remote: "messages", bindTo: "messages", inverseBindTo: "user", modelClass: Message.self, optional: true, relationType: .ToMany, inverseRelationType: .ToOne)
      ]
@@ -133,7 +133,7 @@ User {
 
 And since everything has inverse relationships, you can access user from message immediately: `user.messages.first().user`.
 
-You can nest unlimited number of objects, just provide `relationMap()` for each of them. Then you can easily do something like `user.configuration.colors.first()`.
+You can nest an unlimited number of objects, just provide `relationMap()` for each of them. Then you can easily do something like `user.configuration.colors.first()`.
 
 
 ## Usage
@@ -162,7 +162,7 @@ Use `updateWithJSONString()` or `updateWithDictionary()` methods to update your 
 
 **Serialization**
 
-Sometimes, you woud like to serialize your object, for storing or to update information on server. Use following to achieve that:
+Sometimes, you would like to serialize your object, for storing or to update information on the server. Use following to achieve that:
 
 ```swift
 // Create user
@@ -189,7 +189,7 @@ For now, please download /source and just append it to your project. I am workin
 
 ## Supported Features
 
-Warp should suit most of developers, because it covers all the basic stuff. That being said, there are still things missing to have full coverage. Here is the full list of features that will Warp contain once it is complete:
+Warp should suit most of the developers, because it covers all the basic stuff. That being said, there are still things missing to have full coverage. Here is the full list of features that will Warp contain once it is complete:
 
 - [x] Property mapping
 - [x] Relationship mapping
@@ -197,14 +197,14 @@ Warp should suit most of developers, because it covers all the basic stuff. That
 - [x] Serialization
 - [x] Deserialization
 - [ ] Debugging
-- [ ] 100% test converage
+- [ ] 100% test coverage
 - [ ] Pre / in / post generation closures
-- [ ] Instalators (Cocoapods, Carthage, SPM)
-- [ ] Protocoled version, so it be used as mapper for CoreData and Realm
+- [ ] Installators (Cocoapods, Carthage, SPM)
+- [ ] Protocoled version, so it can be used as mapper for CoreData and Realm
 - [ ] Tool for automatic generation of model, including network requests, from .json file
 
 ## Contribute
-I will gladly accept Pull Requests (and I encourage you to do so). If you encounter any bug or you have enhancement that you would like to see, please open an issue. Please make sure you target your PR against Development branch.
+I will gladly accept Pull Requests (and I encourage you to do so). If you encounter any bug or you have an enhancement that you would like to see, please open an issue. Please make sure you target your PR against Development branch.
 
 ## Contact me
 
