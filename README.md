@@ -56,7 +56,7 @@ In order for Warp to know how to get your data, you provide only two methods:
 
 **Map Properties**
 
-Warp can serialize almost any property you throw at it. You provide description, Warp handles the rest. What Warp does differently than any other mapping system is that the description covers all common scenarios that you can encounter. 
+Warp can serialize almost any property you throw at it. You provide description, Warp handles the rest. What Warp does differently than any other mapping system is that the description covers all common scenarios that you can encounter, no need for some insane hacks. 
 
 ```swift
 
@@ -85,18 +85,15 @@ This way, you can map all the properties - just combine initializer properies to
 func propertyMap() -> [WRPProperty] {
      return [
          ...
-         // When the data for objects are deeper than on first level,
-         // you can use dot notation to flatten it:
+         // When the data for objects are deeper than on first level, you can use dot notation to flatten it:
          // { "_geoloc" : { "lat" : 50, "lon" : 50 }} can be mapped as
          WPRProperty(remote: "_geoloc.lat", bindTo: "latitude", type: .Double),
          WPRProperty(remote: "_geoloc.lon", bindTo: "longitude", type: .Double),
          
-         // Warp can also bind one property from multiple sources,
-         // which is excellent when you have, for example, multiple
-         // databases, each with different key. Specify primary key
-         // if there is chance and more of them can show at once and 
-         // one has priority:
-         WPRProperty(remotes: ["id", "objectId", "object_id"], bindTo: "userId", type: .Int),
+         // Warp can also bind one property from multiple sources,  which is excellent when you have, for example, 
+         // multiple databases, each with different key. Specify primary key
+         // if there is chance tand more of them can show at once and one has priority:
+         WPRProperty(remotes: ["id", "objectId", "object_id"], primaryRemote: "objectId", bindTo: "userId", type: .Int),
      ]
 }
 
@@ -104,7 +101,87 @@ func propertyMap() -> [WRPProperty] {
 
 **Map Relationships**
 
-WIP
+Objects are nice and everything, but usually, when you fetch some data from your REST point, you would like to **create whole chain of objects**. 
+
+User can, for example, have messages that you get in one call. **Warp supports just that**, and as an icing on the cake, it can create relations between objects, even with inverse references:
+
+```swift
+
+func relationMap() -> [WRPRelation] {
+     return [
+        // We create relationship for messages:
+        // Bind remote "messages" to local "messages". Each message has property "user",
+        // which we mark as inverse. We can have multiple messages, therefore .ToMany relationship is used. Each message has only one user,
+        // therefore .ToOne is used in inverse.
+        WPRRelation(remote: "messages", bindTo: "messages", inverseBindTo: "user", modelClass: Message.self, optional: true, relationType: .ToMany, inverseRelationType: .ToOne)
+     ]
+}
+```
+
+When we declare it like this, we get following chain of objects:
+
+```swift
+User {
+   Configured properties
+   messages : [
+      message1 : Message,
+      message2 : Message,
+      message3 : Message
+   ]
+}
+```
+
+And since everything has inverse relationships, you can access user from message immediately: `user.messages.first().user`.
+
+You can nest unlimited number of objects, just provide `relationMap()` for each of them. Then you can easily do something like `user.configuration.colors.first()`.
+
+
+## Usage
+
+Now that you are able to describe any model structure as whole, lets put it to use and see how you can create objects. 
+
+**Object creation**
+
+```swift
+// Lets fetch data from server using Alamofire, AFNetworking, Moya or any other
+Alamofire.request(.GET, "/user", parameters: ["id": "my-user-id"])
+         .responseJSON { response in
+
+             if let JSON = response.result.value {
+                 // This produces FULLY configured user, including messages
+                 // print(user.messages.count) > '3'
+                 let user = User(fromJSON: JSON)
+             }
+         }
+```
+**With just one line of code, everything was configured**. You can use `fromJSON:` or `fromDictionary:`, based on your needs. Support for `fromArray:` for creating of multiple objects at once is coming in next version.
+
+**Object updating**
+
+Use `updateWithJSONString()` or `updateWithDictionary()` methods to update your already created objects - this will keep the properties that are not mentioned in your update data structure intact - and update the rest, including relationships.
+
+**Serialization**
+
+Sometimes, you woud like to serialize your object, for storing or to update information on server. Use following to achieve that:
+
+```swift
+// Create user
+let user = User(fromDictionary: dict)
+
+// Serialize it back
+let dictionary = user.toDictionary()
+
+// Serialize it, but exclude keys that are not interesting.
+// Following with exclude messages on serialization
+let dictionary = user.toDictionaryWithout(["messages"])
+
+// You can also ONLY include keys that you want to have
+let dictionary = user.toDictionaryWith(["email", "name"])
+
+// You can also use WPRSerializationOption.IncludeNullProperties to serialize <null> where optionals are nil
+ 
+```
+Important note: objects are serialized using REMOTE keys, so serialization output will be the same as what you started with.
 
 ## Installation
 

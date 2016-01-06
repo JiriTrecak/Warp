@@ -35,16 +35,21 @@ class Contributor : WPRObject {
     // MARK: - Data object mapping
     
     override func propertyMap() -> [WPRProperty] {
-        
         return [
-            WPRProperty(remote: "login", local: "username", type: .String),
-            WPRProperty(remote: "avatar_url", local: "avatarURL", type: .String),
-            WPRProperty(remote: "html_url", local: "githubURL", type: .String),
-            WPRProperty(remote: "url", local: "detailURL", type: .String),
+            WPRProperty(remote: "login", bindTo: "username", type: .String),
+            WPRProperty(remote: "avatar_url", bindTo: "avatarURL", type: .String),
+            WPRProperty(remote: "html_url",bindTo: "githubURL", type: .String),
+            WPRProperty(remote: "url",bindTo: "detailURL", type: .String),
             WPRProperty(remote: "contributions", type: .Int),
             WPRProperty(remote: "followers", type: .Int),
             WPRProperty(remote: "following", type: .Int),
-            WPRProperty(remote: "public_repos", local: "repositories", type: .Int)
+            WPRProperty(remote: "public_repos", bindTo: "repositories", type: .Int)
+        ]
+    }
+    
+    
+    override func relationMap() -> [WPRRelation] {
+        return [
         ]
     }
 }

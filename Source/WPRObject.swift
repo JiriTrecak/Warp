@@ -509,9 +509,17 @@ class WPRObject : NSObject {
     }
     
     
-    func toDictionaryWithout(exclude : Array<String>) -> NSDictionary {
+    func toDictionaryWithout(exclude : [String]) -> NSDictionary {
         
         return self.toDictionaryWithSerializationOption(.None, without: exclude)
+    }
+    
+    
+    func toDictionaryWithOnly(include : [String]) -> NSDictionary {
+        
+        print("toDictionaryWithOnly(:) is not yet supported. Expected version: 0.2")
+        return NSDictionary()
+        // return self.toDictionaryWithSerializationOption(.None, with: include)
     }
     
     
@@ -521,7 +529,7 @@ class WPRObject : NSObject {
     }
     
     
-    func toDictionaryWithSerializationOption(option: WPRSerializationOption, without : Array<String>) -> NSDictionary {
+    func toDictionaryWithSerializationOption(option: WPRSerializationOption, without : [String]) -> NSDictionary {
         
         // Create output
         let outputParams : NSMutableDictionary = NSMutableDictionary()
@@ -596,11 +604,11 @@ class WPRObject : NSObject {
     }
     
     
-    func keyPathForChildWithElement(element : WPRRelation, parentRules : Array<String>) -> Array<String> {
+    func keyPathForChildWithElement(element : WPRRelation, parentRules : [String]) -> [String] {
         
         if (parentRules.count > 0) {
 
-            var newExlusionRules = Array<String>()
+            var newExlusionRules = [String]()
             
             for parentRule : String in parentRules {
                 
@@ -618,7 +626,7 @@ class WPRObject : NSObject {
     }
     
     
-    func keyPathShouldBeExcluded(valueKeyPath : String, exclusionArray : Array<String>) -> Bool {
+    func keyPathShouldBeExcluded(valueKeyPath : String, exclusionArray : [String]) -> Bool {
         
         let objcString: NSString = valueKeyPath as NSString
         
