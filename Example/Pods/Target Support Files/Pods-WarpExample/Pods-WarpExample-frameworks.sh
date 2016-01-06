@@ -84,10 +84,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-Warp/Alamofire.framework"
-  install_framework "Pods-Warp/Haneke.framework"
+  install_framework "Pods-WarpExample/Alamofire.framework"
+  install_framework "Pods-WarpExample/Haneke.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-Warp/Alamofire.framework"
-  install_framework "Pods-Warp/Haneke.framework"
+  install_framework "Pods-WarpExample/Alamofire.framework"
+  install_framework "Pods-WarpExample/Haneke.framework"
 fi

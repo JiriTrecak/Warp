@@ -1,5 +1,5 @@
 //
-// WPRObject.swift
+// WRPObject.swift
 //
 // Copyright (c) 2016 Jiri Trecak (http://jiritrecak.com/)
 //
@@ -44,7 +44,7 @@ import Foundation
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Implementation
 
-class WPRObject : NSObject {
+class WRPObject : NSObject {
     
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - Properties
@@ -96,7 +96,7 @@ class WPRObject : NSObject {
         self.processClosestRelationships(parameters)
     }
     
-    required init(parameters: NSDictionary, parentObject: WPRObject?) {
+    required init(parameters: NSDictionary, parentObject: WRPObject?) {
         
         super.init()
         
@@ -112,13 +112,13 @@ class WPRObject : NSObject {
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - User overrides for data mapping
     
-    func propertyMap() -> [WPRProperty] {
+    func propertyMap() -> [WRPProperty] {
         
         return []
     }
     
     
-    func relationMap() -> [WPRRelation] {
+    func relationMap() -> [WRPRelation] {
         
         return []
     }
@@ -129,7 +129,7 @@ class WPRObject : NSObject {
     
     private func fillValues(parameters : NSDictionary) {
         
-        for element : WPRProperty in self.propertyMap() {
+        for element : WRPProperty in self.propertyMap() {
             
             // Dot convention
             self.assignValueForElement(element, parameters: parameters)
@@ -143,7 +143,7 @@ class WPRObject : NSObject {
     }
     
     
-    private func processClosestRelationships(parameters : NSDictionary, parentObject : WPRObject?) {
+    private func processClosestRelationships(parameters : NSDictionary, parentObject : WRPObject?) {
         
         for element in self.relationMap() {
             self.assignDataObjectForElement(element, parameters: parameters, parentObject: parentObject)
@@ -151,7 +151,7 @@ class WPRObject : NSObject {
     }
     
     
-    private func assignValueForElement(element : WPRProperty, parameters : NSDictionary) {
+    private func assignValueForElement(element : WRPProperty, parameters : NSDictionary) {
         
         switch element.elementDataType {
             
@@ -221,7 +221,7 @@ class WPRObject : NSObject {
     }
     
     
-    private func assignDataObjectForElement(element : WPRRelation, parameters : NSDictionary, parentObject : WPRObject?) -> WPRObject? {
+    private func assignDataObjectForElement(element : WRPRelation, parameters : NSDictionary, parentObject : WRPObject?) -> WRPObject? {
         
         switch element.relationshipType {
             case .ToOne:
@@ -234,7 +234,7 @@ class WPRObject : NSObject {
     }
     
     
-    private func handleToOneRelationshipWithElement(element : WPRRelation, parameters : NSDictionary, parentObject : WPRObject?) -> WPRObject? {
+    private func handleToOneRelationshipWithElement(element : WRPRelation, parameters : NSDictionary, parentObject : WRPObject?) -> WRPObject? {
         
         if let objectData : AnyObject? = parameters.objectForKey(element.remoteName) {
             
@@ -252,7 +252,7 @@ class WPRObject : NSObject {
                     
                 // If the relationship is to .ToMany, then create data pack for that
                 } else {
-                    var objects : [WPRObject]? = [WPRObject]()
+                    var objects : [WRPObject]? = [WRPObject]()
                     objects?.append(self)
                     dataObject.setValue(.Any, value: objects, forKey: element.inverseName, optional: true, temporaryOptional: true)
                 }
@@ -270,7 +270,7 @@ class WPRObject : NSObject {
     }
     
     
-    private func handleToManyRelationshipWithElement(element : WPRRelation, parameters: NSDictionary, parentObject : WPRObject?) {
+    private func handleToManyRelationshipWithElement(element : WRPRelation, parameters: NSDictionary, parentObject : WRPObject?) {
         
         if let objectDataPack : AnyObject? = parameters.objectForKey(element.remoteName) {
             
@@ -278,7 +278,7 @@ class WPRObject : NSObject {
             if objectDataPack is NSDictionary {
                 
                 // Always override local property, there is no inserting allowed
-                var objects : [WPRObject]? = [WPRObject]()
+                var objects : [WRPObject]? = [WRPObject]()
                 self.setValue(objects, forKey: element.localName)
                 
                 // Create object
@@ -290,7 +290,7 @@ class WPRObject : NSObject {
                     
                 // If the relationship is to .ToMany, then create data pack for that
                 } else {
-                    var objects : [WPRObject]? = [WPRObject]()
+                    var objects : [WRPObject]? = [WRPObject]()
                     objects?.append(self)
                     dataObject.setValue(.Any, value: objects, forKey: element.inverseName, optional: true, temporaryOptional: true)
                 }
@@ -305,7 +305,7 @@ class WPRObject : NSObject {
             } else if objectDataPack is NSArray {
                 
                 // Always override local property, there is no inserting allowed
-                var objects : [WPRObject]? = [WPRObject]()
+                var objects : [WRPObject]? = [WRPObject]()
                 self.setValue(objects, forKey: element.localName)
                 
                 // Fill that property with data
@@ -320,7 +320,7 @@ class WPRObject : NSObject {
                     
                     // If the relationship is to .ToMany, then create data pack for that
                     } else {
-                        var objects : [WPRObject]? = [WPRObject]()
+                        var objects : [WRPObject]? = [WRPObject]()
                         objects?.append(self)
                         dataObject.setValue(.Any, value: objects, forKey: element.inverseName, optional: true, temporaryOptional: true)
                     }
@@ -487,9 +487,9 @@ class WPRObject : NSObject {
     }
     
     
-    private func dataObjectFromParameters(parameters: NSDictionary, objectType : WPRObject.Type, parentObject: WPRObject?) -> WPRObject {
+    private func dataObjectFromParameters(parameters: NSDictionary, objectType : WRPObject.Type, parentObject: WRPObject?) -> WRPObject {
     
-        let dataObject : WPRObject = objectType.init(parameters: parameters, parentObject: parentObject)
+        let dataObject : WRPObject = objectType.init(parameters: parameters, parentObject: parentObject)
         return dataObject
     }
     
@@ -522,19 +522,19 @@ class WPRObject : NSObject {
     }
     
     
-    func toDictionaryWithSerializationOption(option : WPRSerializationOption) -> NSDictionary {
+    func toDictionaryWithSerializationOption(option : WRPSerializationOption) -> NSDictionary {
         
         return self.toDictionaryWithSerializationOption(option, without: [])
     }
     
     
-    func toDictionaryWithSerializationOption(option: WPRSerializationOption, without : [String]) -> NSDictionary {
+    func toDictionaryWithSerializationOption(option: WRPSerializationOption, without : [String]) -> NSDictionary {
         
         // Create output
         let outputParams : NSMutableDictionary = NSMutableDictionary()
         
         // Get mapping parameters, go through all of them and serialize them into output
-        for element : WPRProperty in self.propertyMap() {
+        for element : WRPProperty in self.propertyMap() {
             
             // Skip element if it should be excluded
             if self.keyPathShouldBeExcluded(element.masterRemoteName, exclusionArray: without) {
@@ -546,7 +546,7 @@ class WPRObject : NSObject {
             
             // Check for nil, if it is nil, we add <NSNull> object instead of value
             if (actualValue == nil) {
-                if (option == WPRSerializationOption.IncludeNullProperties) {
+                if (option == WRPSerializationOption.IncludeNullProperties) {
                     outputParams.setObject(NSNull(), forKeyPath: element.remoteNames.first!)
                 }
             } else {
@@ -556,7 +556,7 @@ class WPRObject : NSObject {
         }
         
         // Now get all relationships and call .toDictionary above all of them
-        for element : WPRRelation in self.relationMap() {
+        for element : WRPRelation in self.relationMap() {
             
             if self.keyPathShouldBeExcluded(element.remoteName, exclusionArray: without) {
                 continue
@@ -565,11 +565,11 @@ class WPRObject : NSObject {
             if (element.relationshipType == .ToMany) {
                 
                 // Get data pack
-                if let actualValues = self.valueForKey(element.localName) as? [WPRObject] {
+                if let actualValues = self.valueForKey(element.localName) as? [WRPObject] {
                     
                     // Create data pack if exists, get all values, serialize those, and assign all of them
                     var outputArray = [NSDictionary]()
-                    for actualValue : WPRObject in actualValues {
+                    for actualValue : WRPObject in actualValues {
                         outputArray.append(actualValue.toDictionaryWithSerializationOption(option, without: self.keyPathForChildWithElement(element, parentRules: without)))
                     }
                     
@@ -578,18 +578,18 @@ class WPRObject : NSObject {
                 } else {
                     
                     // Add null value for relationship if needed
-                    if (option == WPRSerializationOption.IncludeNullProperties) {
+                    if (option == WRPSerializationOption.IncludeNullProperties) {
                         outputParams.setObject(NSNull(), forKey: element.remoteName)
                     }
                 }
             } else {
                 
                 // Get actual value of property
-                let actualValue : WPRObject? = self.valueForKey(element.localName) as? WPRObject
+                let actualValue : WRPObject? = self.valueForKey(element.localName) as? WRPObject
                 
                 // Check for nil, if it is nil, we add <NSNull> object instead of value
                 if (actualValue == nil) {
-                    if (option == WPRSerializationOption.IncludeNullProperties) {
+                    if (option == WRPSerializationOption.IncludeNullProperties) {
                         outputParams.setObject(NSNull(), forKey: element.remoteName)
                     }
                 } else {
@@ -603,7 +603,7 @@ class WPRObject : NSObject {
     }
     
     
-    func keyPathForChildWithElement(element : WPRRelation, parentRules : [String]) -> [String] {
+    func keyPathForChildWithElement(element : WRPRelation, parentRules : [String]) -> [String] {
         
         if (parentRules.count > 0) {
 
@@ -640,7 +640,7 @@ class WPRObject : NSObject {
     }
     
     
-    func valueOfElement(element: WPRProperty, value: AnyObject) -> AnyObject {
+    func valueOfElement(element: WRPProperty, value: AnyObject) -> AnyObject {
     
         switch element.elementDataType {
             case .Int:

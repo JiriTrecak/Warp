@@ -1,5 +1,5 @@
 //
-// WPRStructs.swift
+// WRPStructs.swift
 //
 // Copyright (c) 2016 Jiri Trecak (http://jiritrecak.com/)
 //
@@ -32,7 +32,7 @@ import Foundation
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 //MARK: - Structures
 
-struct WPRProperty {
+struct WRPProperty {
     
     // All remote names that can be used as source of property content
     var remoteNames : [String]
@@ -129,17 +129,17 @@ struct WPRProperty {
 }
 
 
-struct WPRRelation {
+struct WRPRelation {
     
     var remoteName : String
     var localName : String
-    var className : WPRObject.Type
+    var className : WRPObject.Type
     var inverseName : String
     var relationshipType : WRPRelationType
     var inverseRelationshipType : WRPRelationType
     var optional : Bool = true
     
-    init(remote : String, bindTo : String, inverseBindTo : String, modelClass : WPRObject.Type, optional : Bool, relationType : WRPRelationType, inverseRelationType : WRPRelationType) {
+    init(remote : String, bindTo : String, inverseBindTo : String, modelClass : WRPObject.Type, optional : Bool, relationType : WRPRelationType, inverseRelationType : WRPRelationType) {
         
         self.remoteName = remote
         self.localName = bindTo

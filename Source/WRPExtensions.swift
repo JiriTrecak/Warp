@@ -1,5 +1,5 @@
 //
-// WPRExtensions.swift
+// WRPExtensions.swift
 //
 // Copyright (c) 2016 Jiri Trecak (http://jiritrecak.com/)
 //

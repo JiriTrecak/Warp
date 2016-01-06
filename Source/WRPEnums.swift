@@ -1,5 +1,5 @@
 //
-// WPREnums.swift
+// WRPEnums.swift
 //
 // Copyright (c) 2016 Jiri Trecak (http://jiritrecak.com/)
 //
@@ -56,7 +56,7 @@ enum WRPRelationType {
     case ToMany
 }
 
-enum WPRSerializationOption {
+enum WRPSerializationOption {
     case None
     case IncludeNullProperties
 }

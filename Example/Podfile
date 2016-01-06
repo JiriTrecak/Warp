@@ -13,9 +13,7 @@ platform :ios, '8.3'
 # Swift frameworks
 use_frameworks!
 
-# Integrate everything to targets
-target "Warp" do
-
+def core_pods
 # -------- Frameworks / Networking
 
 pod 'Alamofire'
@@ -31,13 +29,10 @@ pod 'HanekeSwift'
 
 
 # -------- Frameworks / Utilities
-
 end
 
-
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    puts "#{target.name}"
-  end
+target 'WarpExample' do
+   core_pods
 end
+
 

@@ -15,7 +15,7 @@ import Foundation
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Object definition
 
-class Contributor : WPRObject {
+class Contributor : WRPObject {
     
     
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -34,21 +34,21 @@ class Contributor : WPRObject {
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - Data object mapping
     
-    override func propertyMap() -> [WPRProperty] {
+    override func propertyMap() -> [WRPProperty] {
         return [
-            WPRProperty(remote: "login", bindTo: "username", type: .String),
-            WPRProperty(remote: "avatar_url", bindTo: "avatarURL", type: .String),
-            WPRProperty(remote: "html_url",bindTo: "githubURL", type: .String),
-            WPRProperty(remote: "url",bindTo: "detailURL", type: .String),
-            WPRProperty(remote: "contributions", type: .Int),
-            WPRProperty(remote: "followers", type: .Int),
-            WPRProperty(remote: "following", type: .Int),
-            WPRProperty(remote: "public_repos", bindTo: "repositories", type: .Int)
+            WRPProperty(remote: "login", bindTo: "username", type: .String),
+            WRPProperty(remote: "avatar_url", bindTo: "avatarURL", type: .String),
+            WRPProperty(remote: "html_url",bindTo: "githubURL", type: .String),
+            WRPProperty(remote: "url",bindTo: "detailURL", type: .String),
+            WRPProperty(remote: "contributions", type: .Int),
+            WRPProperty(remote: "followers", type: .Int),
+            WRPProperty(remote: "following", type: .Int),
+            WRPProperty(remote: "public_repos", bindTo: "repositories", type: .Int)
         ]
     }
     
     
-    override func relationMap() -> [WPRRelation] {
+    override func relationMap() -> [WRPRelation] {
         return [
         ]
     }
