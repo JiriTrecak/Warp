@@ -5,13 +5,13 @@
 
 # Warp
 
-Insanely easy-to-use, extremely powerful swift object (+model mapper), that will make the creation of your data models breeze. 
+Insanely easy-to-use, extremely powerful swift object (+model mapper), that will make the creation of your data models a breeze. 
 
 > Too tired to read? That is understandable. That is why I made this example. You will find it a little bit different from what you usually see - [check it out](https://github.com/JiriTrecak/Warp/tree/master/Example). Just download and run in XCode.
 
 
 
-## Do I need it? (most probably)
+## Do I need it? (most likely)
 
 There is one thing that most applications have in common - they are in **dire need of downloading raw data, and creating objects out of them**. What is NOT that common is that you need the whole database to store them - simply having them as objects in memory would be sufficient.
 
@@ -92,7 +92,7 @@ func propertyMap() -> [WRPProperty] {
          
          // Warp can also bind one property from multiple sources,  which is excellent when you have, for example, 
          // multiple databases, each with different key. Specify primary key
-         // if there is chance tand more of them can show at once and one has priority:
+         // if there is chance that more of them can show at once and one has priority:
          WPRProperty(remotes: ["id", "objectId", "object_id"], primaryRemote: "objectId", bindTo: "userId", type: .Int),
      ]
 }
@@ -101,7 +101,7 @@ func propertyMap() -> [WRPProperty] {
 
 **Map Relationships**
 
-Objects are nice and everything, but usually, when you fetch some data from your REST point, you would like to **create whole chain of objects**. 
+Objects are nice and all, but usually, when you fetch some data from your REST point, you would like to **create whole chain of objects**. 
 
 The user can, for example, have messages that you get in one call. **Warp supports just that**, and as an icing on the cake, it can create relations between objects, even with inverse references:
 
@@ -133,7 +133,7 @@ User {
 
 And since everything has inverse relationships, you can access user from message immediately: `user.messages.first().user`. This exactly mirrors relationship-database functionality, but without actual database. Sweet.
 
-You can have an unlimited number of nested objects, with unlimited depth - just provide `relationMap()` for each of them. Then you can easily do something like `user.configuration.colors.first()!.configuration.user`, which is completely pointless, but serves as good example.
+You can have an unlimited number of nested objects, with unlimited depth - just provide `relationMap()` for each of them. Then you can easily do something like `user.configuration.colors.first()!.configuration.user`, which is completely pointless, but serves as a good example.
 
 
 ## Usage
@@ -154,7 +154,7 @@ Alamofire.request(.GET, "/user", parameters: ["id": "my-user-id"])
              }
          }
 ```
-**With just one line of code, everything was configured**. You can use `fromJSON:` or `fromDictionary:`, based on your needs. Support for `fromArray:` for creating of multiple objects at once is coming in next version.
+**With just one line of code, everything was configured**. You can use `fromJSON:` or `fromDictionary:`, based on your needs. Support for `fromArray:` for creation of multiple objects at once is coming in the next version.
 
 **Object updating**
 
