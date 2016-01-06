@@ -185,7 +185,14 @@ Important note: objects are serialized using REMOTE keys, so serialization outpu
 
 ## Installation
 
-For now, please download /source and just append it to your project. I am working on CocoaPods / Carthage / SPM at the moment.
+CocoaPods is preferred way to install Warp:
+
+```
+pod 'Warp'
+```
+If you are not already using [Cocoapods](https://cocoapods.org/ "Cocoapods site"), now is the time. You can also use Swift Package Manager to download it.
+
+Support for Carthage is coming soon.
 
 ## Supported Features
 
@@ -199,9 +206,9 @@ Warp should suit most of the developers, because it covers all the basic stuff. 
 - [ ] Debugging
 - [ ] 100% test coverage
 - [ ] Pre / in / post generation closures
-- [ ] Installators (Cocoapods, Carthage, SPM)
+- [ ] Installers (Cocoapods :white_check_mark:, SPM :white_check_mark:, Carthage)
 - [ ] Protocoled version, so it can be used as mapper for CoreData and Realm
-- [ ] Tool for automatic generation of model, including network requests, from .json file
+- [ ] Tool for automatic generatiogn of model, including network requests, from .json file
 
 ## Contribute
 I will gladly accept Pull Requests (and I encourage you to do so). If you encounter any bug or you have an enhancement that you would like to see, please open an issue. Please make sure you target your PR against Development branch.
