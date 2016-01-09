@@ -44,7 +44,7 @@ import Foundation
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Implementation
 
-public class WRPObject : NSObject {
+public class WRPObject : NSObject, CustomDebugStringConvertible {
     
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - Properties
@@ -85,24 +85,49 @@ public class WRPObject : NSObject {
         
         super.init()
         
+        self.preInit()
         if self.debugInstantiate() {
-            NSLog("parameters %@", parameters)
+            NSLog("Object type %@\nParsing using %@", self.self, parameters)
         }
         
         self.fillValues(parameters)
         self.processClosestRelationships(parameters)
+        self.postInit()
     }
     
     required public init(parameters: NSDictionary, parentObject: WRPObject?) {
         
         super.init()
         
+        self.preInit()
         if self.debugInstantiate() {
-            NSLog("parameters %@", parameters)
+            NSLog("Object type %@\nParsing using %@", self.self, parameters)
         }
         
         self.fillValues(parameters)
         self.processClosestRelationships(parameters, parentObject: parentObject)
+        self.postInit()
+    }
+    
+    
+    public static func fromArrayInJson<T : WRPObject>(fromJSON : String) -> [T] {
+        
+        if let jsonData : NSData = fromJSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true) {
+            do {
+                var buffer : [T] = []
+                let jsonObject : AnyObject? = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.AllowFragments)
+                for jsonDictionary in jsonObject as! NSArray {
+                    let object = T(parameters: jsonDictionary as! NSDictionary)
+                    buffer.append(object)
+                }
+                return buffer
+            } catch let error as NSError {
+                print ("Error while parsing a json object: \(error.domain)")
+                return []
+            }
+        } else {
+            return []
+        }
     }
     
     
@@ -118,6 +143,18 @@ public class WRPObject : NSObject {
     public func relationMap() -> [WRPRelation] {
         
         return []
+    }
+    
+    
+    public func preInit() {
+        
+        
+    }
+    
+    
+    public func postInit() {
+        
+        
     }
     
     
@@ -238,20 +275,22 @@ public class WRPObject : NSObject {
             if objectData is NSDictionary {
                 
                 // Create object
-                let dataObject = self.dataObjectFromParameters(objectData as! NSDictionary, objectType: element.className, parentObject: parentObject)
+                let dataObject = self.dataObjectFromParameters(objectData as! NSDictionary, objectType: self.elementClassType(objectData as! NSDictionary, relationDescriptor: element), parentObject: parentObject)
                 
                 // Set child object to self.property
                 self.setValue(.Any, value: dataObject, forKey: element.localName, optional: element.optional, temporaryOptional: false)
                 
                 // Set inverse relationship
-                if (element.inverseRelationshipType == .ToOne) {
-                    dataObject.setValue(.Any, value: self, forKey: element.inverseName, optional: true, temporaryOptional: true)
-                    
-                    // If the relationship is to .ToMany, then create data pack for that
-                } else {
-                    var objects : [WRPObject]? = [WRPObject]()
-                    objects?.append(self)
-                    dataObject.setValue(.Any, value: objects, forKey: element.inverseName, optional: true, temporaryOptional: true)
+                if let inverseRelationshipType = element.inverseRelationshipType, inverseKey = element.inverseName {
+                    if inverseRelationshipType == .ToOne {
+                        dataObject.setValue(.Any, value: self, forKey: inverseKey, optional: true, temporaryOptional: true)
+                        
+                        // If the relationship is to .ToMany, then create data pack for that
+                    } else if inverseRelationshipType == .ToMany {
+                        var objects : [WRPObject]? = [WRPObject]()
+                        objects?.append(self)
+                        dataObject.setValue(.Any, value: objects, forKey: inverseKey, optional: true, temporaryOptional: true)
+                    }
                 }
                 
                 return dataObject
@@ -279,17 +318,19 @@ public class WRPObject : NSObject {
                 self.setValue(objects, forKey: element.localName)
                 
                 // Create object
-                let dataObject = self.dataObjectFromParameters(objectDataPack as! NSDictionary, objectType: element.className, parentObject: parentObject)
+                let dataObject = self.dataObjectFromParameters(objectDataPack as! NSDictionary, objectType: self.elementClassType(objectDataPack as! NSDictionary, relationDescriptor: element), parentObject: parentObject)
                 
                 // Set inverse relationship
-                if (element.inverseRelationshipType == .ToOne) {
-                    dataObject.setValue(.Any, value: self, forKey: element.inverseName, optional: true, temporaryOptional: true)
-                    
-                    // If the relationship is to .ToMany, then create data pack for that
-                } else {
-                    var objects : [WRPObject]? = [WRPObject]()
-                    objects?.append(self)
-                    dataObject.setValue(.Any, value: objects, forKey: element.inverseName, optional: true, temporaryOptional: true)
+                if let inverseRelationshipType = element.inverseRelationshipType, inverseKey = element.inverseName {
+                    if inverseRelationshipType == .ToOne {
+                        dataObject.setValue(.Any, value: self, forKey: inverseKey, optional: true, temporaryOptional: true)
+                        
+                        // If the relationship is to .ToMany, then create data pack for that
+                    } else if inverseRelationshipType == .ToMany {
+                        var objects : [WRPObject]? = [WRPObject]()
+                        objects?.append(self)
+                        dataObject.setValue(.Any, value: objects, forKey: inverseKey, optional: true, temporaryOptional: true)
+                    }
                 }
                 
                 // Append new data object to array
@@ -309,17 +350,20 @@ public class WRPObject : NSObject {
                 for objectData in (objectDataPack as! NSArray) {
                     
                     // Create object
-                    let dataObject = self.dataObjectFromParameters(objectData as! NSDictionary, objectType: element.className, parentObject: parentObject)
+                    let dataObject = self.dataObjectFromParameters(objectData as! NSDictionary, objectType: self.elementClassType(objectData as! NSDictionary, relationDescriptor: element), parentObject: parentObject)
                     
                     // Assign inverse relationship
-                    if (element.inverseRelationshipType == .ToOne) {
-                        dataObject.setValue(.Any, value: self, forKey: element.inverseName, optional: true, temporaryOptional: true)
+                    if let inverseRelationshipType = element.inverseRelationshipType, inverseKey = element.inverseName {
                         
+                        if inverseRelationshipType == .ToOne {
+                            dataObject.setValue(.Any, value: self, forKey: inverseKey, optional: true, temporaryOptional: true)
+                            
                         // If the relationship is to .ToMany, then create data pack for that
-                    } else {
-                        var objects : [WRPObject]? = [WRPObject]()
-                        objects?.append(self)
-                        dataObject.setValue(.Any, value: objects, forKey: element.inverseName, optional: true, temporaryOptional: true)
+                        } else {
+                            var objects : [WRPObject]? = [WRPObject]()
+                            objects?.append(self)
+                            dataObject.setValue(.Any, value: objects, forKey: inverseKey, optional: true, temporaryOptional: true)
+                        }
                     }
                     
                     // Append new data
@@ -335,6 +379,22 @@ public class WRPObject : NSObject {
                 self.setValue(nil, forKey: element.localName)
             }
         }
+    }
+    
+    private func elementClassType(element : NSDictionary, relationDescriptor : WRPRelation) -> WRPObject.Type {
+        
+        // If there is only one class to pick from (no transform function), return the type
+        if let type = relationDescriptor.modelClassType {
+            return type
+            
+        // Otherwise use transformation function to get object type from string key
+        } else if let transformer = relationDescriptor.modelClassTypeTransformer, key = relationDescriptor.modelClassTypeKey {
+            return transformer(element.objectForKey(key) as! String)
+        }
+        
+        // Transformation failed
+        // TODO: Better error handling
+        return WRPObject.self
     }
     
     
@@ -704,6 +764,11 @@ public class WRPObject : NSObject {
     public func debugInstantiate() -> Bool {
         
         return false
+    }
+    
+    
+    override public var debugDescription : String {
+        return "Class: \(self.self)\nContent: \(self.toDictionary().debugDescription)"
     }
 }
 
