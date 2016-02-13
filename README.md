@@ -190,7 +190,7 @@ CocoaPods is preferred way to install Warp:
 ```
 pod 'Warp'
 ```
-If you are not already using [Cocoapods](https://cocoapods.org/ "Cocoapods site"), now is the time. You can also use Swift Package Manager to download it.
+If you are not already using [CocoaPods](https://cocoapods.org/ "CocoaPods site"), now is the time. You can also use Swift Package Manager to download it.
 
 Support for Carthage is coming soon.
 
@@ -206,7 +206,7 @@ Warp should suit most of the developers, because it covers all the basic stuff. 
 - [ ] Debugging
 - [ ] 100% test coverage
 - [ ] Pre / in / post generation closures
-- [ ] Installers (Cocoapods :white_check_mark:, SPM :white_check_mark:, Carthage)
+- [ ] Installers (CocoaPods :white_check_mark:, SPM :white_check_mark:, Carthage)
 - [ ] Protocoled version, so it can be used as mapper for CoreData and Realm
 - [ ] Tool for automatic generatiogn of model, including network requests, from .json file
 
