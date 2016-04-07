@@ -15,7 +15,6 @@
 		0B0798041C3D67AA000FA7FD /* Contributor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0797EE1C3D67AA000FA7FD /* Contributor.swift */; };
 		0B0798051C3D67AA000FA7FD /* ContributorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0797F11C3D67AA000FA7FD /* ContributorCell.swift */; };
 		0B0798071C3D67AA000FA7FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B0797F51C3D67AA000FA7FD /* Assets.xcassets */; };
-		0B0798081C3D67AA000FA7FD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B0797F61C3D67AA000FA7FD /* Info.plist */; };
 		0B0798091C3D67AA000FA7FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0B0797F81C3D67AA000FA7FD /* InfoPlist.strings */; };
 		0B07980A1C3D67AA000FA7FD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0B0797FA1C3D67AA000FA7FD /* Localizable.strings */; };
 		0B07980B1C3D67AA000FA7FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B0797FD1C3D67AA000FA7FD /* LaunchScreen.storyboard */; };
@@ -259,7 +258,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Jiri Trecak";
 				TargetAttributes = {
 					0BF9E6271BF2333D0055C0D8 = {
@@ -291,7 +290,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B0798081C3D67AA000FA7FD /* Info.plist in Resources */,
 				0B07980A1C3D67AA000FA7FD /* Localizable.strings in Resources */,
 				0B0798091C3D67AA000FA7FD /* InfoPlist.strings in Resources */,
 				0B07980C1C3D67AA000FA7FD /* Main.storyboard in Resources */,
