@@ -131,6 +131,17 @@ public class WRPObject: NSObject {
     }
     
     
+    public static func fromArray<T: WRPObject>(object: NSArray) -> [T] {
+        
+        var buffer: [T] = []
+        for jsonDictionary in object {
+            let object = T(parameters: jsonDictionary as! NSDictionary)
+            buffer.append(object)
+        }
+        return buffer
+    }
+    
+    
     public static func fromArrayInJson<T: WRPObject>(fromJSON: String, modelClassTypeKey : String, modelClassTransformer : (String -> WRPObject.Type)) -> [T] {
         
         if let jsonData: NSData = fromJSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true) {
@@ -152,6 +163,20 @@ public class WRPObject: NSObject {
         } else {
             return []
         }
+    }
+    
+    
+    public static func fromArray<T: WRPObject>(object: NSArray, modelClassTypeKey : String, modelClassTransformer : (String -> WRPObject.Type)) -> [T] {
+        
+        var buffer: [WRPObject] = []
+        for jsonDictionary in object {
+            if let key = jsonDictionary[modelClassTypeKey] as? String {
+                let type = modelClassTransformer(key)
+                let object = type.init(parameters: jsonDictionary as! NSDictionary)
+                buffer.append(object)
+            }
+        }
+        return buffer as! [T]
     }
     
     
