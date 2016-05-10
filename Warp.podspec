@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Warp'
-  s.version = '1.1'
+  s.version = '1.1.1'
   s.license = 'MIT'
   s.summary = 'Most powerful Swift object-mapper'
   s.homepage = 'https://github.com/JiriTrecak/Warp'

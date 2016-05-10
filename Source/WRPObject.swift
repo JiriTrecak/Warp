@@ -142,7 +142,7 @@ public class WRPObject: NSObject {
     }
     
     
-    public static func fromArrayInJson<T: WRPObject>(fromJSON: String, modelClassTypeKey : String, modelClassTransformer : (String -> WRPObject.Type)) -> [T] {
+    public static func fromArrayInJson<T: WRPObject>(fromJSON: String, modelClassTypeKey : String, modelClassTransformer : (String -> WRPObject.Type?)) -> [T] {
         
         if let jsonData: NSData = fromJSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true) {
             do {
@@ -151,8 +151,10 @@ public class WRPObject: NSObject {
                 for jsonDictionary in jsonObject as! NSArray {
                     if let key = jsonDictionary[modelClassTypeKey] as? String {
                         let type = modelClassTransformer(key)
-                        let object = type.init(parameters: jsonDictionary as! NSDictionary)
-                        buffer.append(object)
+                        if let type = type {
+                            let object = type.init(parameters: jsonDictionary as! NSDictionary)
+                            buffer.append(object)
+                        }
                     }
                 }
                 return buffer as! [T]
@@ -166,14 +168,16 @@ public class WRPObject: NSObject {
     }
     
     
-    public static func fromArray<T: WRPObject>(object: NSArray, modelClassTypeKey : String, modelClassTransformer : (String -> WRPObject.Type)) -> [T] {
+    public static func fromArray<T: WRPObject>(object: NSArray, modelClassTypeKey : String, modelClassTransformer : (String -> WRPObject.Type?)) -> [T] {
         
         var buffer: [WRPObject] = []
         for jsonDictionary in object {
             if let key = jsonDictionary[modelClassTypeKey] as? String {
                 let type = modelClassTransformer(key)
-                let object = type.init(parameters: jsonDictionary as! NSDictionary)
-                buffer.append(object)
+                if let type = type {
+                    let object = type.init(parameters: jsonDictionary as! NSDictionary)
+                    buffer.append(object)
+                }
             }
         }
         return buffer as! [T]

@@ -135,7 +135,7 @@ public struct WRPRelation {
     var localName : String
     var modelClassType : WRPObject.Type?
     var modelClassTypeKey : String?
-    var modelClassTypeTransformer : (String -> WRPObject.Type)?
+    var modelClassTypeTransformer : (String -> WRPObject.Type?)?
     var inverseName : String?
     var relationshipType : WRPRelationType
     var inverseRelationshipType : WRPRelationType?
@@ -154,7 +154,7 @@ public struct WRPRelation {
     }
     
     
-    public init(remote : String, bindTo : String, inverseBindTo : String?, modelClassTypeKey : String, modelClassTransformer : (String -> WRPObject.Type), optional : Bool, relationType : WRPRelationType, inverseRelationType : WRPRelationType?) {
+    public init(remote : String, bindTo : String, inverseBindTo : String?, modelClassTypeKey : String, modelClassTransformer : (String -> WRPObject.Type?), optional : Bool, relationType : WRPRelationType, inverseRelationType : WRPRelationType?) {
         
         self.remoteName = remote
         self.localName = bindTo
