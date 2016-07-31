@@ -47,6 +47,16 @@ class ContributorsVC : UIViewController {
         super.viewDidLoad()
         self.setupUI()
         self.loadData()
+        self.test()
+    }
+    
+    
+    private func test() {
+        
+        let contributor = Contributor(fromJSON: "{\"gender\":\"Female\"")
+        if contributor.gender == .Female {
+            NSLog("validation passed")
+        }
     }
     
     

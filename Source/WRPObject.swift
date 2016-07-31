@@ -24,27 +24,16 @@
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-//MARK: - Imports
+// MARK: - Imports
 
 import Foundation
-
-
-// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-//MARK: - Definitions
-
-
-// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-// MARK: - Extension
-
-
-// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-// MARK: - Protocols
+import Then
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Implementation
 
-public class WRPObject: NSObject {
+public class WRPObject: NSObject, Then {
     
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - Properties
@@ -304,6 +293,18 @@ public class WRPObject: NSObject {
                 if (self.setValue(.Any, value: self.dictionaryFromParameters(parameters, key: elementRemoteName),
                     forKey: element.localName, optional: element.optional, temporaryOptional: element.remoteNames.count > 1)) { break }
             }
+            
+        // Handle enum data type
+//        case .Enum:
+//            for elementRemoteName in element.remoteNames {
+//                let enumValue = self.enumFromParameters(parameters, key: elementRemoteName, enumClass: element.enumType!)
+//                if (self.setValue(.Any, value: enumValue?.rawValue,
+//                    forKey: element.localName, optional: element.optional, temporaryOptional: element.remoteNames.count > 1)) { break }
+//            }
+//        }
+        case .Enum:
+            NSLog("Enum not supported yet")
+            break
         }
     }
     
@@ -604,6 +605,16 @@ public class WRPObject: NSObject {
         
         if let value: NSDictionary = parameters.valueForKeyPath(key) as? NSDictionary {
             return value
+        }
+        
+        return nil
+    }
+    
+    
+    private func enumFromParameters<T: RawRepresentable>(parameters: NSDictionary, key: String, enumClass: T) -> T? {
+        
+        if let value = parameters.valueForKeyPath(key) as? T.RawValue {
+            return T(rawValue: value)
         }
         
         return nil

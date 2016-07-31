@@ -23,6 +23,8 @@
 		0B0798141C3D6D2C000FA7FD /* WRPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0798101C3D6D2C000FA7FD /* WRPExtensions.swift */; };
 		0B0798151C3D6D2C000FA7FD /* WRPObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0798111C3D6D2C000FA7FD /* WRPObject.swift */; };
 		0B0798161C3D6D2C000FA7FD /* WRPStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0798121C3D6D2C000FA7FD /* WRPStructs.swift */; };
+		0BA217AE1D1929C80021FE25 /* WRPProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA217AD1D1929C80021FE25 /* WRPProtocols.swift */; };
+		0BA217B01D192EB50021FE25 /* WRPOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA217AF1D192EB50021FE25 /* WRPOperators.swift */; };
 		0F5A3FA2B2B792533593D406 /* Pods_WarpExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A64A92AEA27F8531800A2C /* Pods_WarpExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +47,8 @@
 		0B0798101C3D6D2C000FA7FD /* WRPExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WRPExtensions.swift; path = ../../../../../../Source/WRPExtensions.swift; sourceTree = "<group>"; };
 		0B0798111C3D6D2C000FA7FD /* WRPObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WRPObject.swift; path = ../../../../../../Source/WRPObject.swift; sourceTree = "<group>"; };
 		0B0798121C3D6D2C000FA7FD /* WRPStructs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WRPStructs.swift; path = ../../../../../../Source/WRPStructs.swift; sourceTree = "<group>"; };
+		0BA217AD1D1929C80021FE25 /* WRPProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WRPProtocols.swift; path = ../../../../../../Source/WRPProtocols.swift; sourceTree = "<group>"; };
+		0BA217AF1D192EB50021FE25 /* WRPOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WRPOperators.swift; path = ../../../../../../Source/WRPOperators.swift; sourceTree = "<group>"; };
 		0BF9E6281BF2333D0055C0D8 /* Warp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Warp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DE33EE1D60E1BB1EDFB1C11 /* Pods-WarpExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WarpExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WarpExample/Pods-WarpExample.debug.xcconfig"; sourceTree = "<group>"; };
 		90A64A92AEA27F8531800A2C /* Pods_WarpExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WarpExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +191,8 @@
 				0B0798101C3D6D2C000FA7FD /* WRPExtensions.swift */,
 				0B0798111C3D6D2C000FA7FD /* WRPObject.swift */,
 				0B0798121C3D6D2C000FA7FD /* WRPStructs.swift */,
+				0BA217AD1D1929C80021FE25 /* WRPProtocols.swift */,
+				0BA217AF1D192EB50021FE25 /* WRPOperators.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -368,10 +374,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B0798021C3D67AA000FA7FD /* AppDelegate.swift in Sources */,
+				0BA217AE1D1929C80021FE25 /* WRPProtocols.swift in Sources */,
 				0B0798041C3D67AA000FA7FD /* Contributor.swift in Sources */,
 				0B0798131C3D6D2C000FA7FD /* WRPEnums.swift in Sources */,
 				0B0798051C3D67AA000FA7FD /* ContributorCell.swift in Sources */,
 				0B0798151C3D6D2C000FA7FD /* WRPObject.swift in Sources */,
+				0BA217B01D192EB50021FE25 /* WRPOperators.swift in Sources */,
 				0B0797FF1C3D67AA000FA7FD /* ContributorsVC.swift in Sources */,
 				0B0798031C3D67AA000FA7FD /* ContributorAPI.swift in Sources */,
 				0B0798161C3D6D2C000FA7FD /* WRPStructs.swift in Sources */,

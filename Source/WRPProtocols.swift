@@ -1,5 +1,5 @@
 //
-// WRPEnums.swift
+// WRPObject.swift
 //
 // Copyright (c) 2016 Jiri Trecak (http://jiritrecak.com/)
 //
@@ -24,41 +24,17 @@
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-//MARK: - Imports
+// MARK: - Imports
 
 import Foundation
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-//MARK: - Enums
-
-public enum WRPPropertyType {
-    case String
-    case Number
-    case Bool
-    case Int
-    case Double
-    case Float
-    case Date
-    case Array
-    case Dictionary
-    case Enum
-}
-
-enum WRPPropertyAssignement {
-    case Int
-    case Double
-    case Float
-    case Any
-}
-
-public enum WRPRelationType {
-    case ToOne
-    case ToMany
-}
-
-public enum WRPSerializationOption {
-    case None
-    case IncludeNullProperties
-}
-
+// MARK: - Enums
+//
+//public enum WRPEnum: String {
+//    
+//    func serialized() -> String {
+//        return self.rawValue
+//    }
+//}

@@ -1,4 +1,21 @@
 
+## 1.3 (2016-07-31)
+
+
+Enhancements:
+
+- Added Then library as required dependency to easily mock the objects
+
+
+## 1.1 (2016-03-30)
+
+
+Enhancements:
+
+- Added multiple new ways how to initialize the objects
+- Performance optimizations
+
+
 ## 1.0.1 (2016-01-09)
 
 

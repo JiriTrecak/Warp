@@ -13,6 +13,20 @@ import Foundation
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// MARK: - Enums
+
+enum Gender: String {
+    
+    case Male
+    case Female
+    case Other
+    func serialized() -> String {
+        return self.rawValue
+    }
+}
+
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Object definition
 
 class Contributor : WRPObject {
@@ -29,6 +43,7 @@ class Contributor : WRPObject {
     var followers : Int = 0
     var following : Int = 0
     var repositories : Int = 0
+    var gender: Gender = .Male
     
     
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -43,7 +58,8 @@ class Contributor : WRPObject {
             WRPProperty(remote: "contributions", type: .Int),
             WRPProperty(remote: "followers", type: .Int),
             WRPProperty(remote: "following", type: .Int),
-            WRPProperty(remote: "public_repos", bindTo: "repositories", type: .Int)
+            WRPProperty(remote: "public_repos", bindTo: "repositories", type: .Int),
+            WRPProperty(remote: "gender", enumType: Gender.self)
         ]
     }
     

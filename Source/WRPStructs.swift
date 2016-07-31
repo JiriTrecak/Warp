@@ -24,13 +24,13 @@
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-//MARK: - Imports
+// MARK: - Imports
 
 import Foundation
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-//MARK: - Structures
+// MARK: - Structures
 
 public struct WRPProperty {
     
@@ -47,6 +47,7 @@ public struct WRPProperty {
     var elementDataType : WRPPropertyType
     var optional : Bool = true
     var format : String?
+    var enumType : Any?
     
     public init(remote : String, bindTo : String, type : WRPPropertyType) {
         
@@ -62,6 +63,26 @@ public struct WRPProperty {
         self.masterRemoteName = remote
         self.localName = remote
         self.elementDataType = type
+    }
+    
+    
+    public init<T: RawRepresentable>(remote : String, enumType: T.Type) {
+        
+        self.remoteNames = [remote]
+        self.masterRemoteName = remote
+        self.localName = remote
+        self.elementDataType = .Enum
+        self.enumType = enumType
+    }
+    
+    
+    public init<T: RawRepresentable>(remote : String, bindTo: String, enumType: T.Type) {
+        
+        self.remoteNames = [remote]
+        self.masterRemoteName = remote
+        self.localName = bindTo
+        self.elementDataType = .Enum
+        self.enumType = enumType
     }
     
     
@@ -171,9 +192,9 @@ public struct WRPRelation {
 
 struct AnyKey: Hashable {
     
-    private let underlying: Any
-    private let hashValueFunc: () -> Int
-    private let equalityFunc: (Any) -> Bool
+    let underlying: Any
+    let hashValueFunc: () -> Int
+    let equalityFunc: (Any) -> Bool
     
     init<T: Hashable>(_ key: T) {
         // Capture the key's hashability and equatability using closures.
@@ -193,11 +214,5 @@ struct AnyKey: Hashable {
     
     var hashValue: Int { return hashValueFunc() }
 }
-
-
-func ==(x: AnyKey, y: AnyKey) -> Bool {
-    return x.equalityFunc(y.underlying)
-}
-
 
 

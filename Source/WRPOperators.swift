@@ -1,5 +1,5 @@
 //
-// WRPEnums.swift
+// WRPOperators.swift
 //
 // Copyright (c) 2016 Jiri Trecak (http://jiritrecak.com/)
 //
@@ -24,41 +24,14 @@
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-//MARK: - Imports
+// MARK: - Imports
 
 import Foundation
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-//MARK: - Enums
+// MARK: - AnyKey operators
 
-public enum WRPPropertyType {
-    case String
-    case Number
-    case Bool
-    case Int
-    case Double
-    case Float
-    case Date
-    case Array
-    case Dictionary
-    case Enum
+func ==(x: AnyKey, y: AnyKey) -> Bool {
+    return x.equalityFunc(y.underlying)
 }
-
-enum WRPPropertyAssignement {
-    case Int
-    case Double
-    case Float
-    case Any
-}
-
-public enum WRPRelationType {
-    case ToOne
-    case ToMany
-}
-
-public enum WRPSerializationOption {
-    case None
-    case IncludeNullProperties
-}
-
