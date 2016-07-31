@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Warp'
-  s.version = '1.3'
+  s.version = '1.3.1'
   s.license = 'MIT'
   s.summary = 'Most powerful Swift object-mapper'
   s.homepage = 'https://github.com/JiriTrecak/Warp'
@@ -11,7 +11,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.9'
   s.tvos.deployment_target = '9.0'
-  s.watchos.deployment_target = '2.0'
 
   s.source_files = 'Source/*.swift'
 

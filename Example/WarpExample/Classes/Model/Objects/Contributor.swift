@@ -65,6 +65,7 @@ class Contributor : WRPObject {
     
     
     override func relationMap() -> [WRPRelation] {
+        
         return [
         ]
     }

@@ -240,13 +240,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0BF9E63A1BF2333D0055C0D8 /* Build configuration list for PBXNativeTarget "WarpExample" */;
 			buildPhases = (
-				5B9ACEC300E5099D0AEF48EF /* Check Pods Manifest.lock */,
+				5B9ACEC300E5099D0AEF48EF /* [CP] Check Pods Manifest.lock */,
 				0BF9E6241BF2333D0055C0D8 /* Sources */,
 				0BF9E6251BF2333D0055C0D8 /* Frameworks */,
 				0BF9E6261BF2333D0055C0D8 /* Resources */,
 				0BF9E6791BF2375E0055C0D8 /* Laurine Generator */,
-				661952BAD5BDBA92F0002523 /* Embed Pods Frameworks */,
-				E7615683F158DBE063F06835 /* Copy Pods Resources */,
+				661952BAD5BDBA92F0002523 /* [CP] Embed Pods Frameworks */,
+				E7615683F158DBE063F06835 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -321,14 +321,14 @@
 			shellPath = /bin/sh;
 			shellScript = "set -x\n\n#--------- START OF CONFIGURATION\n\n# Get base path to project\nBASE_PATH=\"$PROJECT_DIR/$PROJECT_NAME\"\n\n# Get path to Laurine Generator script\nLAURINE_PATH=\"$BASE_PATH/Generators/LaurineGenerator.swift\"\n\n# Get path to main localization file (usually english).\nSOURCE_PATH=\"$BASE_PATH/Resources/Localizations/en.lproj/Localizable.strings\"\n\n# Get path to output. If you use ObjC version of output, set implementation file (.m), as header will be generated automatically\nOUTPUT_PATH=\"$BASE_PATH/Classes/Generated/Localizations.swift\"\n\n#--------- END OF CONFIGURATION\n\n# Add permission to generator for script execution\nchmod 755 $LAURINE_PATH\n\n# Actually generate output. -- CUSTOMIZE -- parameters to your needs (see documentation).\n# Will only re-generate script if something changed\nif [ \"$OUTPUT_PATH\" -ot \"$SOURCE_PATH\" ]; then\n\"$LAURINE_PATH\" -i \"$SOURCE_PATH\" -o \"$OUTPUT_PATH\"\nfi\n\n";
 		};
-		5B9ACEC300E5099D0AEF48EF /* Check Pods Manifest.lock */ = {
+		5B9ACEC300E5099D0AEF48EF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,14 +336,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		661952BAD5BDBA92F0002523 /* Embed Pods Frameworks */ = {
+		661952BAD5BDBA92F0002523 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,14 +351,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WarpExample/Pods-WarpExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E7615683F158DBE063F06835 /* Copy Pods Resources */ = {
+		E7615683F158DBE063F06835 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
