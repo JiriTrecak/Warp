@@ -24,13 +24,13 @@
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-// MARK: - Imports
+//MARK: - Imports
 
 import Foundation
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-// MARK: - Structures
+//MARK: - Structures
 
 public struct WRPProperty {
     
@@ -47,7 +47,6 @@ public struct WRPProperty {
     var elementDataType : WRPPropertyType
     var optional : Bool = true
     var format : String?
-    var enumType : Any?
     
     public init(remote : String, bindTo : String, type : WRPPropertyType) {
         
@@ -63,26 +62,6 @@ public struct WRPProperty {
         self.masterRemoteName = remote
         self.localName = remote
         self.elementDataType = type
-    }
-    
-    
-    public init<T: RawRepresentable>(remote : String, enumType: T.Type) {
-        
-        self.remoteNames = [remote]
-        self.masterRemoteName = remote
-        self.localName = remote
-        self.elementDataType = .Enum
-        self.enumType = enumType
-    }
-    
-    
-    public init<T: RawRepresentable>(remote : String, bindTo: String, enumType: T.Type) {
-        
-        self.remoteNames = [remote]
-        self.masterRemoteName = remote
-        self.localName = bindTo
-        self.elementDataType = .Enum
-        self.enumType = enumType
     }
     
     
@@ -156,7 +135,7 @@ public struct WRPRelation {
     var localName : String
     var modelClassType : WRPObject.Type?
     var modelClassTypeKey : String?
-    var modelClassTypeTransformer : (String -> WRPObject.Type?)?
+    var modelClassTypeTransformer : ((String) -> WRPObject.Type?)?
     var inverseName : String?
     var relationshipType : WRPRelationType
     var inverseRelationshipType : WRPRelationType?
@@ -175,7 +154,7 @@ public struct WRPRelation {
     }
     
     
-    public init(remote : String, bindTo : String, inverseBindTo : String?, modelClassTypeKey : String, modelClassTransformer : (String -> WRPObject.Type?), optional : Bool, relationType : WRPRelationType, inverseRelationType : WRPRelationType?) {
+    public init(remote : String, bindTo : String, inverseBindTo : String?, modelClassTypeKey : String, modelClassTransformer : @escaping ((String) -> WRPObject.Type?), optional : Bool, relationType : WRPRelationType, inverseRelationType : WRPRelationType?) {
         
         self.remoteName = remote
         self.localName = bindTo
@@ -192,9 +171,9 @@ public struct WRPRelation {
 
 struct AnyKey: Hashable {
     
-    let underlying: Any
-    let hashValueFunc: () -> Int
-    let equalityFunc: (Any) -> Bool
+    fileprivate let underlying: Any
+    fileprivate let hashValueFunc: () -> Int
+    fileprivate let equalityFunc: (Any) -> Bool
     
     init<T: Hashable>(_ key: T) {
         // Capture the key's hashability and equatability using closures.
@@ -214,5 +193,11 @@ struct AnyKey: Hashable {
     
     var hashValue: Int { return hashValueFunc() }
 }
+
+
+func ==(x: AnyKey, y: AnyKey) -> Bool {
+    return x.equalityFunc(y.underlying)
+}
+
 
 

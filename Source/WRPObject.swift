@@ -24,16 +24,27 @@
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-// MARK: - Imports
+//MARK: - Imports
 
 import Foundation
-import Then
+
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+//MARK: - Definitions
+
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// MARK: - Extension
+
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// MARK: - Protocols
 
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // MARK: - Implementation
 
-public class WRPObject: NSObject {
+open class WRPObject: NSObject {
     
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - Properties
@@ -50,9 +61,9 @@ public class WRPObject: NSObject {
     
     convenience public init(fromJSON: String) {
         
-        if let jsonData: NSData = fromJSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true) {
+        if let jsonData: Data = fromJSON.data(using: String.Encoding.utf8, allowLossyConversion: true) {
             do {
-                let jsonObject: AnyObject? = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.AllowFragments)
+                let jsonObject: AnyObject? = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as AnyObject?
                 self.init(parameters: jsonObject as! NSDictionary)
             } catch let error as NSError {
                 self.init(parameters: [:])
@@ -99,12 +110,12 @@ public class WRPObject: NSObject {
     }
     
     
-    public static func fromArrayInJson<T: WRPObject>(fromJSON: String) -> [T] {
+    open static func fromArrayInJson<T: WRPObject>(_ fromJSON: String) -> [T] {
         
-        if let jsonData: NSData = fromJSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true) {
+        if let jsonData: Data = fromJSON.data(using: String.Encoding.utf8, allowLossyConversion: true) {
             do {
                 var buffer: [T] = []
-                let jsonObject: AnyObject? = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.AllowFragments)
+                let jsonObject: AnyObject? = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as AnyObject?
                 for jsonDictionary in jsonObject as! NSArray {
                     let object = T(parameters: jsonDictionary as! NSDictionary)
                     buffer.append(object)
@@ -120,7 +131,7 @@ public class WRPObject: NSObject {
     }
     
     
-    public static func fromArray<T: WRPObject>(object: NSArray) -> [T] {
+    open static func fromArray<T: WRPObject>(_ object: NSArray) -> [T] {
         
         var buffer: [T] = []
         for jsonDictionary in object {
@@ -131,14 +142,14 @@ public class WRPObject: NSObject {
     }
     
     
-    public static func fromArrayInJson<T: WRPObject>(fromJSON: String, modelClassTypeKey : String, modelClassTransformer : (String -> WRPObject.Type?)) -> [T] {
+    open static func fromArrayInJson<T: WRPObject>(_ fromJSON: String, modelClassTypeKey : String, modelClassTransformer : ((String) -> WRPObject.Type?)) -> [T] {
         
-        if let jsonData: NSData = fromJSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true) {
+        if let jsonData: Data = fromJSON.data(using: String.Encoding.utf8, allowLossyConversion: true) {
             do {
                 var buffer: [WRPObject] = []
-                let jsonObject: AnyObject? = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.AllowFragments)
-                for jsonDictionary in jsonObject as! NSArray {
-                    if let key = jsonDictionary[modelClassTypeKey] as? String {
+                let jsonObject: AnyObject? = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as AnyObject?
+                for object: Any in jsonObject as! NSArray {
+                    if let jsonDictionary = object as? NSDictionary, let key = jsonDictionary[modelClassTypeKey] as? String {
                         let type = modelClassTransformer(key)
                         if let type = type {
                             let object = type.init(parameters: jsonDictionary as! NSDictionary)
@@ -157,11 +168,11 @@ public class WRPObject: NSObject {
     }
     
     
-    public static func fromArray<T: WRPObject>(object: NSArray, modelClassTypeKey : String, modelClassTransformer : (String -> WRPObject.Type?)) -> [T] {
+    open static func fromArray<T: WRPObject>(_ object: NSArray, modelClassTypeKey : String, modelClassTransformer : ((String) -> WRPObject.Type?)) -> [T] {
         
         var buffer: [WRPObject] = []
-        for jsonDictionary in object {
-            if let key = jsonDictionary[modelClassTypeKey] as? String {
+        for object: Any in object {
+            if let jsonDictionary = object as? NSDictionary, let key = jsonDictionary[modelClassTypeKey] as? String {
                 let type = modelClassTransformer(key)
                 if let type = type {
                     let object = type.init(parameters: jsonDictionary as! NSDictionary)
@@ -176,25 +187,25 @@ public class WRPObject: NSObject {
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - User overrides for data mapping
     
-    public func propertyMap() -> [WRPProperty] {
+    open func propertyMap() -> [WRPProperty] {
         
         return []
     }
     
     
-    public func relationMap() -> [WRPRelation] {
+    open func relationMap() -> [WRPRelation] {
         
         return []
     }
     
     
-    public func preInit() {
+    open func preInit() {
         
         
     }
     
     
-    public func postInit() {
+    open func postInit() {
         
         
     }
@@ -203,7 +214,7 @@ public class WRPObject: NSObject {
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - Private
     
-    private func fillValues(parameters: NSDictionary) {
+    fileprivate func fillValues(_ parameters: NSDictionary) {
         
         for element: WRPProperty in self.propertyMap() {
             
@@ -213,13 +224,13 @@ public class WRPObject: NSObject {
     }
     
     
-    private func processClosestRelationships(parameters: NSDictionary) {
+    fileprivate func processClosestRelationships(_ parameters: NSDictionary) {
         
         self.processClosestRelationships(parameters, parentObject: nil)
     }
     
     
-    private func processClosestRelationships(parameters: NSDictionary, parentObject: WRPObject?) {
+    fileprivate func processClosestRelationships(_ parameters: NSDictionary, parentObject: WRPObject?) {
         
         for element in self.relationMap() {
             self.assignDataObjectForElement(element, parameters: parameters, parentObject: parentObject)
@@ -227,94 +238,82 @@ public class WRPObject: NSObject {
     }
     
     
-    private func assignValueForElement(element: WRPProperty, parameters: NSDictionary) {
+    fileprivate func assignValueForElement(_ element: WRPProperty, parameters: NSDictionary) {
         
         switch element.elementDataType {
             
         // Handle string data type
-        case .String:
+        case .string:
             for elementRemoteName in element.remoteNames {
-                if (self.setValue(.Any, value: self.stringFromParameters(parameters, key: elementRemoteName),
+                if (self.setValue(.any, value: self.stringFromParameters(parameters, key: elementRemoteName) as AnyObject?,
                     forKey: element.localName, optional: element.optional, temporaryOptional: element.remoteNames.count > 1)) { break }
             }
             
         // Handle boolean data type
-        case .Bool:
+        case .bool:
             for elementRemoteName in element.remoteNames {
-                if (self.setValue(.Any, value: self.boolFromParameters(parameters, key: elementRemoteName),
+                if (self.setValue(.any, value: self.boolFromParameters(parameters, key: elementRemoteName) as AnyObject?,
                     forKey: element.localName, optional: element.optional, temporaryOptional: element.remoteNames.count > 1)) { break }
             }
             
         // Handle double data type
-        case .Double:
+        case .double:
             for elementRemoteName in element.remoteNames {
-                if (self.setValue(.Double, value: self.doubleFromParameters(parameters, key: elementRemoteName),
+                if (self.setValue(.double, value: self.doubleFromParameters(parameters, key: elementRemoteName) as AnyObject?,
                     forKey: element.localName, optional: element.optional, temporaryOptional: element.remoteNames.count > 1)) { break }
             }
             
         // Handle float data type
-        case .Float:
+        case .float:
             for elementRemoteName in element.remoteNames {
-                if (self.setValue(.Float, value: self.floatFromParameters(parameters, key: elementRemoteName),
+                if (self.setValue(.float, value: self.floatFromParameters(parameters, key: elementRemoteName) as AnyObject?,
                     forKey: element.localName, optional: element.optional, temporaryOptional: element.remoteNames.count > 1)) { break }
             }
             
         // Handle int data type
-        case .Int:
+        case .int:
             for elementRemoteName in element.remoteNames {
-                if (self.setValue(.Int, value: self.intFromParameters(parameters, key: elementRemoteName),
+                if (self.setValue(.int, value: self.intFromParameters(parameters, key: elementRemoteName) as AnyObject?,
                     forKey: element.localName, optional: element.optional, temporaryOptional: element.remoteNames.count > 1)) { break }
             }
             
         // Handle int data type
-        case .Number:
+        case .number:
             for elementRemoteName in element.remoteNames {
-                if (self.setValue(.Any, value: self.numberFromParameters(parameters, key: elementRemoteName),
+                if (self.setValue(.any, value: self.numberFromParameters(parameters, key: elementRemoteName),
                     forKey: element.localName, optional: element.optional, temporaryOptional: element.remoteNames.count > 1)) { break }
             }
             
         // Handle date data type
-        case .Date:
+        case .date:
             for elementRemoteName in element.remoteNames {
-                if (self.setValue(.Any, value: self.dateFromParameters(parameters, key: elementRemoteName, format: element.format),
+                if (self.setValue(.any, value: self.dateFromParameters(parameters, key: elementRemoteName, format: element.format) as AnyObject?,
                     forKey: element.localName, optional: element.optional, temporaryOptional: element.remoteNames.count > 1)) { break }
             }
             
         // Handle array data type
-        case .Array:
+        case .array:
             for elementRemoteName in element.remoteNames {
-                if (self.setValue(.Any, value: self.arrayFromParameters(parameters, key: elementRemoteName),
+                if (self.setValue(.any, value: self.arrayFromParameters(parameters, key: elementRemoteName) as AnyObject?,
                     forKey: element.localName, optional: element.optional, temporaryOptional: element.remoteNames.count > 1)) { break }
             }
             
         // Handle dictionary data type
-        case .Dictionary:
+        case .dictionary:
             for elementRemoteName in element.remoteNames {
-                if (self.setValue(.Any, value: self.dictionaryFromParameters(parameters, key: elementRemoteName),
+                if (self.setValue(.any, value: self.dictionaryFromParameters(parameters, key: elementRemoteName),
                     forKey: element.localName, optional: element.optional, temporaryOptional: element.remoteNames.count > 1)) { break }
             }
-            
-        // Handle enum data type
-//        case .Enum:
-//            for elementRemoteName in element.remoteNames {
-//                let enumValue = self.enumFromParameters(parameters, key: elementRemoteName, enumClass: element.enumType!)
-//                if (self.setValue(.Any, value: enumValue?.rawValue,
-//                    forKey: element.localName, optional: element.optional, temporaryOptional: element.remoteNames.count > 1)) { break }
-//            }
-//        }
-        case .Enum:
-            NSLog("Enum not supported yet")
-            break
         }
     }
     
     
-    private func assignDataObjectForElement(element: WRPRelation, parameters: NSDictionary, parentObject: WRPObject?) -> WRPObject? {
+    fileprivate func assignDataObjectForElement(_ element: WRPRelation, parameters: NSDictionary, parentObject: WRPObject?) -> WRPObject? {
         
         switch element.relationshipType {
-        case .ToOne:
+        case .toOne:
             return self.handleToOneRelationshipWithElement(element, parameters: parameters, parentObject: parentObject)
-        case .ToMany:
+        case .toMany:
             self.handleToManyRelationshipWithElement(element, parameters: parameters, parentObject: parentObject)
         }
         
@@ -322,9 +321,9 @@ public class WRPObject: NSObject {
     }
     
     
-    private func handleToOneRelationshipWithElement(element: WRPRelation, parameters: NSDictionary, parentObject: WRPObject?) -> WRPObject? {
+    fileprivate func handleToOneRelationshipWithElement(_ element: WRPRelation, parameters: NSDictionary, parentObject: WRPObject?) -> WRPObject? {
         
-        if let objectData: AnyObject? = parameters.valueForKeyPath(element.remoteName) {
+        if let objectData: AnyObject? = parameters.value(forKeyPath: element.remoteName) as AnyObject?? {
             
             if objectData is NSDictionary {
                 
@@ -336,18 +335,18 @@ public class WRPObject: NSObject {
                 let dataObject = self.dataObjectFromParameters(objectData as! NSDictionary, objectType: classType, parentObject: parentObject)
                 
                 // Set child object to self.property
-                self.setValue(.Any, value: dataObject, forKey: element.localName, optional: element.optional, temporaryOptional: false)
+                self.setValue(.any, value: dataObject, forKey: element.localName, optional: element.optional, temporaryOptional: false)
                 
                 // Set inverse relationship
-                if let inverseRelationshipType = element.inverseRelationshipType, inverseKey = element.inverseName {
-                    if inverseRelationshipType == .ToOne {
-                        dataObject.setValue(.Any, value: self, forKey: inverseKey, optional: true, temporaryOptional: true)
+                if let inverseRelationshipType = element.inverseRelationshipType, let inverseKey = element.inverseName {
+                    if inverseRelationshipType == .toOne {
+                        dataObject.setValue(.any, value: self, forKey: inverseKey, optional: true, temporaryOptional: true)
                         
                         // If the relationship is to .ToMany, then create data pack for that
-                    } else if inverseRelationshipType == .ToMany {
+                    } else if inverseRelationshipType == .toMany {
                         var objects: [WRPObject]? = [WRPObject]()
                         objects?.append(self)
-                        dataObject.setValue(.Any, value: objects, forKey: inverseKey, optional: true, temporaryOptional: true)
+                        dataObject.setValue(.any, value: objects as AnyObject?, forKey: inverseKey, optional: true, temporaryOptional: true)
                     }
                 }
                 
@@ -355,7 +354,7 @@ public class WRPObject: NSObject {
             } else if objectData is NSNull {
                 
                 // Set empty object to self.property
-                self.setValue(.Any, value: nil, forKey: element.localName, optional: element.optional, temporaryOptional: false)
+                self.setValue(.any, value: nil, forKey: element.localName, optional: element.optional, temporaryOptional: false)
                 return nil
             }
         }
@@ -364,9 +363,9 @@ public class WRPObject: NSObject {
     }
     
     
-    private func handleToManyRelationshipWithElement(element: WRPRelation, parameters: NSDictionary, parentObject: WRPObject?) {
+    fileprivate func handleToManyRelationshipWithElement(_ element: WRPRelation, parameters: NSDictionary, parentObject: WRPObject?) {
         
-        if let objectDataPack: AnyObject? = parameters.valueForKeyPath(element.remoteName) {
+        if let objectDataPack: AnyObject? = parameters.value(forKeyPath: element.remoteName) as AnyObject?? {
             
             // While the relationship is .ToMany, we can actually add it from single entry
             if objectDataPack is NSDictionary {
@@ -383,15 +382,15 @@ public class WRPObject: NSObject {
                 let dataObject = self.dataObjectFromParameters(objectDataPack as! NSDictionary, objectType: classType, parentObject: parentObject)
                 
                 // Set inverse relationship
-                if let inverseRelationshipType = element.inverseRelationshipType, inverseKey = element.inverseName {
-                    if inverseRelationshipType == .ToOne {
-                        dataObject.setValue(.Any, value: self, forKey: inverseKey, optional: true, temporaryOptional: true)
+                if let inverseRelationshipType = element.inverseRelationshipType, let inverseKey = element.inverseName {
+                    if inverseRelationshipType == .toOne {
+                        dataObject.setValue(.any, value: self, forKey: inverseKey, optional: true, temporaryOptional: true)
                         
                         // If the relationship is to .ToMany, then create data pack for that
-                    } else if inverseRelationshipType == .ToMany {
+                    } else if inverseRelationshipType == .toMany {
                         var objects: [WRPObject]? = [WRPObject]()
                         objects?.append(self)
-                        dataObject.setValue(.Any, value: objects, forKey: inverseKey, optional: true, temporaryOptional: true)
+                        dataObject.setValue(.any, value: objects as AnyObject?, forKey: inverseKey, optional: true, temporaryOptional: true)
                     }
                 }
                 
@@ -420,16 +419,16 @@ public class WRPObject: NSObject {
                     let dataObject = self.dataObjectFromParameters(objectData as! NSDictionary, objectType: classType, parentObject: parentObject)
                     
                     // Assign inverse relationship
-                    if let inverseRelationshipType = element.inverseRelationshipType, inverseKey = element.inverseName {
+                    if let inverseRelationshipType = element.inverseRelationshipType, let inverseKey = element.inverseName {
                         
-                        if inverseRelationshipType == .ToOne {
-                            dataObject.setValue(.Any, value: self, forKey: inverseKey, optional: true, temporaryOptional: true)
+                        if inverseRelationshipType == .toOne {
+                            dataObject.setValue(.any, value: self, forKey: inverseKey, optional: true, temporaryOptional: true)
                             
                             // If the relationship is to .ToMany, then create data pack for that
                         } else {
                             var objects: [WRPObject]? = [WRPObject]()
                             objects?.append(self)
-                            dataObject.setValue(.Any, value: objects, forKey: inverseKey, optional: true, temporaryOptional: true)
+                            dataObject.setValue(.any, value: objects as AnyObject?, forKey: inverseKey, optional: true, temporaryOptional: true)
                         }
                     }
                     
@@ -448,15 +447,15 @@ public class WRPObject: NSObject {
         }
     }
     
-    private func elementClassType(element: NSDictionary, relationDescriptor: WRPRelation) -> WRPObject.Type? {
+    fileprivate func elementClassType(_ element: NSDictionary, relationDescriptor: WRPRelation) -> WRPObject.Type? {
         
         // If there is only one class to pick from (no transform function), return the type
         if let type = relationDescriptor.modelClassType {
             return type
             
             // Otherwise use transformation function to get object type from string key
-        } else if let transformer = relationDescriptor.modelClassTypeTransformer, key = relationDescriptor.modelClassTypeKey {
-            return transformer(element.objectForKey(key) as! String)
+        } else if let transformer = relationDescriptor.modelClassTypeTransformer, let key = relationDescriptor.modelClassTypeKey {
+            return transformer(element.object(forKey: key) as! String)
         }
         
         // Transformation failed
@@ -465,15 +464,15 @@ public class WRPObject: NSObject {
     }
     
     
-    private func setValue(type: WRPPropertyAssignement, value: AnyObject?, forKey key: String, optional: Bool, temporaryOptional: Bool) -> Bool {
+    fileprivate func setValue(_ type: WRPPropertyAssignement, value: AnyObject?, forKey key: String, optional: Bool, temporaryOptional: Bool) -> Bool {
         
         if ((optional || temporaryOptional) && value == nil) {
             return false
         }
         
-        if type == .Any {
+        if type == .any {
             self.setValue(value, forKey: key)
-        } else if type == .Double {
+        } else if type == .double {
             if value is Double {
                 self.setValue(value as! NSNumber, forKey: key)
             } else if value is NSNumber {
@@ -481,15 +480,15 @@ public class WRPObject: NSObject {
             } else {
                 self.setValue(nil, forKey: key)
             }
-        } else if type == .Int {
+        } else if type == .int {
             if value is Int {
                 self.setValue(value as! NSNumber, forKey: key)
             } else if value is NSNumber {
-                self.setValue(value?.integerValue, forKey: key)
+                self.setValue(value?.int32Value, forKey: key)
             } else {
                 self.setValue(nil, forKey: key)
             }
-        } else if type == .Float {
+        } else if type == .float {
             if value is Float {
                 self.setValue(value as! NSNumber, forKey: key)
             } else if value is NSNumber {
@@ -502,13 +501,13 @@ public class WRPObject: NSObject {
     }
     
     
-    private func setDictionary(value: Dictionary<AnyKey, AnyKey>?, forKey: String, optional: Bool, temporaryOptional: Bool) -> Bool {
+    fileprivate func setDictionary(_ value: Dictionary<AnyKey, AnyKey>?, forKey: String, optional: Bool, temporaryOptional: Bool) -> Bool {
         
         if ((optional || temporaryOptional) && value == nil) {
             return false
         }
         
-        self.setValue((value as! AnyObject), forKey: forKey)
+        self.setValue((value as AnyObject), forKey: forKey)
         return true
     }
     
@@ -516,18 +515,18 @@ public class WRPObject: NSObject {
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - Variable creation
     
-    private func stringFromParameters(parameters: NSDictionary, key: String) -> String? {
+    fileprivate func stringFromParameters(_ parameters: NSDictionary, key: String) -> String? {
         
-        if let value: NSString = parameters.valueForKeyPath(key) as? NSString {
+        if let value: NSString = parameters.value(forKeyPath: key) as? NSString {
             return value as String
         }
         
         return nil
     }
     
-    private func numberFromParameters(parameters: NSDictionary, key: String) -> NSNumber? {
+    fileprivate func numberFromParameters(_ parameters: NSDictionary, key: String) -> NSNumber? {
         
-        if let value: NSNumber = parameters.valueForKeyPath(key) as? NSNumber {
+        if let value: NSNumber = parameters.value(forKeyPath: key) as? NSNumber {
             return value as NSNumber
         }
         
@@ -535,9 +534,9 @@ public class WRPObject: NSObject {
     }
     
     
-    private func intFromParameters(parameters: NSDictionary, key: String) -> Int? {
+    fileprivate func intFromParameters(_ parameters: NSDictionary, key: String) -> Int? {
         
-        if let value: NSNumber = parameters.valueForKeyPath(key) as? NSNumber {
+        if let value: NSNumber = parameters.value(forKeyPath: key) as? NSNumber {
             
             return Int(value)
         }
@@ -546,9 +545,9 @@ public class WRPObject: NSObject {
     }
     
     
-    private func doubleFromParameters(parameters: NSDictionary, key: String) -> Double? {
+    fileprivate func doubleFromParameters(_ parameters: NSDictionary, key: String) -> Double? {
         
-        if let value: NSNumber = parameters.valueForKeyPath(key) as? NSNumber {
+        if let value: NSNumber = parameters.value(forKeyPath: key) as? NSNumber {
             return Double(value)
         }
         
@@ -556,9 +555,9 @@ public class WRPObject: NSObject {
     }
     
     
-    private func floatFromParameters(parameters: NSDictionary, key: String) -> Float? {
+    fileprivate func floatFromParameters(_ parameters: NSDictionary, key: String) -> Float? {
         
-        if let value: NSNumber = parameters.valueForKeyPath(key) as? NSNumber {
+        if let value: NSNumber = parameters.value(forKeyPath: key) as? NSNumber {
             return Float(value)
         }
         
@@ -566,9 +565,9 @@ public class WRPObject: NSObject {
     }
     
     
-    private func boolFromParameters(parameters: NSDictionary, key: String) -> Bool? {
+    fileprivate func boolFromParameters(_ parameters: NSDictionary, key: String) -> Bool? {
         
-        if let value: NSNumber = parameters.valueForKeyPath(key) as? NSNumber {
+        if let value: NSNumber = parameters.value(forKeyPath: key) as? NSNumber {
             return Bool(value)
         }
         
@@ -576,24 +575,24 @@ public class WRPObject: NSObject {
     }
     
     
-    private func dateFromParameters(parameters: NSDictionary, key: String, format: String?) -> NSDate? {
+    fileprivate func dateFromParameters(_ parameters: NSDictionary, key: String, format: String?) -> Date? {
         
-        if let value: String = parameters.valueForKeyPath(key) as? String {
+        if let value: String = parameters.value(forKeyPath: key) as? String {
             
             // Create date formatter
-            let dateFormatter: NSDateFormatter = NSDateFormatter()
+            let dateFormatter: DateFormatter = DateFormatter()
             dateFormatter.dateFormat = format
             
-            return dateFormatter.dateFromString(value)
+            return dateFormatter.date(from: value)
         }
         
         return nil
     }
     
     
-    private func arrayFromParameters(parameters: NSDictionary, key: String) -> Array<AnyObject>? {
+    fileprivate func arrayFromParameters(_ parameters: NSDictionary, key: String) -> Array<AnyObject>? {
         
-        if let value: Array = parameters.valueForKeyPath(key) as? Array<AnyObject> {
+        if let value: Array = parameters.value(forKeyPath: key) as? Array<AnyObject> {
             return value
         }
         
@@ -601,9 +600,9 @@ public class WRPObject: NSObject {
     }
     
     
-    private func dictionaryFromParameters(parameters: NSDictionary, key: String) -> NSDictionary? {
+    fileprivate func dictionaryFromParameters(_ parameters: NSDictionary, key: String) -> NSDictionary? {
         
-        if let value: NSDictionary = parameters.valueForKeyPath(key) as? NSDictionary {
+        if let value: NSDictionary = parameters.value(forKeyPath: key) as? NSDictionary {
             return value
         }
         
@@ -611,24 +610,14 @@ public class WRPObject: NSObject {
     }
     
     
-    private func enumFromParameters<T: RawRepresentable>(parameters: NSDictionary, key: String, enumClass: T) -> T? {
-        
-        if let value = parameters.valueForKeyPath(key) as? T.RawValue {
-            return T(rawValue: value)
-        }
-        
-        return nil
-    }
-    
-    
-    private func dataObjectFromParameters(parameters: NSDictionary, objectType: WRPObject.Type, parentObject: WRPObject?) -> WRPObject {
+    fileprivate func dataObjectFromParameters(_ parameters: NSDictionary, objectType: WRPObject.Type, parentObject: WRPObject?) -> WRPObject {
         
         let dataObject: WRPObject = objectType.init(parameters: parameters, parentObject: parentObject)
         return dataObject
     }
     
     
-    private func valueForKey(key: String, optional: Bool) -> AnyObject? {
+    fileprivate func valueForKey(_ key: String, optional: Bool) -> AnyObject? {
         
         return nil
     }
@@ -636,19 +625,19 @@ public class WRPObject: NSObject {
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - Object serialization
     
-    public func toDictionary() -> NSDictionary {
+    open func toDictionary() -> NSDictionary {
         
-        return self.toDictionaryWithSerializationOption(.None, without: [])
+        return self.toDictionaryWithSerializationOption(.none, without: [])
     }
     
     
-    public func toDictionaryWithout(exclude: [String]) -> NSDictionary {
+    open func toDictionaryWithout(_ exclude: [String]) -> NSDictionary {
         
-        return self.toDictionaryWithSerializationOption(.None, without: exclude)
+        return self.toDictionaryWithSerializationOption(.none, without: exclude)
     }
     
     
-    public func toDictionaryWithOnly(include: [String]) -> NSDictionary {
+    open func toDictionaryWithOnly(_ include: [String]) -> NSDictionary {
         
         print("toDictionaryWithOnly(:) is not yet supported. Expected version: 0.2")
         return NSDictionary()
@@ -656,13 +645,13 @@ public class WRPObject: NSObject {
     }
     
     
-    public func toDictionaryWithSerializationOption(option: WRPSerializationOption) -> NSDictionary {
+    open func toDictionaryWithSerializationOption(_ option: WRPSerializationOption) -> NSDictionary {
         
         return self.toDictionaryWithSerializationOption(option, without: [])
     }
     
     
-    public func toDictionaryWithSerializationOption(option: WRPSerializationOption, without: [String]) -> NSDictionary {
+    open func toDictionaryWithSerializationOption(_ option: WRPSerializationOption, without: [String]) -> NSDictionary {
         
         // Create output
         let outputParams: NSMutableDictionary = NSMutableDictionary()
@@ -676,11 +665,11 @@ public class WRPObject: NSObject {
             }
             
             // Get actual value of property
-            let actualValue: AnyObject? = self.valueForKey(element.localName)
+            let actualValue: AnyObject? = self.value(forKey: element.localName) as AnyObject?
             
             // Check for nil, if it is nil, we add <NSNull> object instead of value
             if (actualValue == nil) {
-                if (option == WRPSerializationOption.IncludeNullProperties) {
+                if (option == WRPSerializationOption.includeNullProperties) {
                     outputParams.setObject(NSNull(), forKeyPath: element.remoteNames.first!)
                 }
             } else {
@@ -696,10 +685,10 @@ public class WRPObject: NSObject {
                 continue
             }
             
-            if (element.relationshipType == .ToMany) {
+            if (element.relationshipType == .toMany) {
                 
                 // Get data pack
-                if let actualValues = self.valueForKey(element.localName) as? [WRPObject] {
+                if let actualValues = self.value(forKey: element.localName) as? [WRPObject] {
                     
                     // Create data pack if exists, get all values, serialize those, and assign all of them
                     var outputArray = [NSDictionary]()
@@ -708,27 +697,27 @@ public class WRPObject: NSObject {
                     }
                     
                     // Add all intros back
-                    outputParams.setObject(outputArray, forKeyPath: element.remoteName)
+                    outputParams.setObject(outputArray as AnyObject!, forKeyPath: element.remoteName)
                 } else {
                     
                     // Add null value for relationship if needed
-                    if (option == WRPSerializationOption.IncludeNullProperties) {
-                        outputParams.setObject(NSNull(), forKey: element.remoteName)
+                    if (option == WRPSerializationOption.includeNullProperties) {
+                        outputParams.setObject(NSNull(), forKey: element.remoteName as NSCopying)
                     }
                 }
             } else {
                 
                 // Get actual value of property
-                let actualValue: WRPObject? = self.valueForKey(element.localName) as? WRPObject
+                let actualValue: WRPObject? = self.value(forKey: element.localName) as? WRPObject
                 
                 // Check for nil, if it is nil, we add <NSNull> object instead of value
                 if (actualValue == nil) {
-                    if (option == WRPSerializationOption.IncludeNullProperties) {
-                        outputParams.setObject(NSNull(), forKey: element.remoteName)
+                    if (option == WRPSerializationOption.includeNullProperties) {
+                        outputParams.setObject(NSNull(), forKey: element.remoteName as NSCopying)
                     }
                 } else {
                     // Otherwise add value itself
-                    outputParams.setObject(actualValue!.toDictionaryWithSerializationOption(option, without: self.keyPathForChildWithElement(element, parentRules: without)), forKey: element.remoteName)
+                    outputParams.setObject(actualValue!.toDictionaryWithSerializationOption(option, without: self.keyPathForChildWithElement(element, parentRules: without)), forKey: element.remoteName as NSCopying)
                 }
             }
         }
@@ -737,7 +726,7 @@ public class WRPObject: NSObject {
     }
     
     
-    private func keyPathForChildWithElement(element: WRPRelation, parentRules: [String]) -> [String] {
+    fileprivate func keyPathForChildWithElement(_ element: WRPRelation, parentRules: [String]) -> [String] {
         
         if (parentRules.count > 0) {
             
@@ -746,9 +735,9 @@ public class WRPObject: NSObject {
             for parentRule: String in parentRules {
                 
                 let objcString: NSString = parentRule as NSString
-                let range: NSRange = objcString.rangeOfString(String(format: "%@.", element.remoteName))
+                let range: NSRange = objcString.range(of: String(format: "%@.", element.remoteName))
                 if range.location != NSNotFound && range.location == 0 {
-                    let newPath = objcString.stringByReplacingCharactersInRange(range, withString: "")
+                    let newPath = objcString.replacingCharacters(in: range, with: "")
                     newExlusionRules.append(newPath as String)
                 }
             }
@@ -759,12 +748,12 @@ public class WRPObject: NSObject {
     }
     
     
-    private func keyPathShouldBeExcluded(valueKeyPath: String, exclusionArray: [String]) -> Bool {
+    fileprivate func keyPathShouldBeExcluded(_ valueKeyPath: String, exclusionArray: [String]) -> Bool {
         
         let objcString: NSString = valueKeyPath as NSString
         
         for exclustionKeyPath: String in exclusionArray {
-            let range: NSRange = objcString.rangeOfString(exclustionKeyPath)
+            let range: NSRange = objcString.range(of: exclustionKeyPath)
             if range.location != NSNotFound && range.location == 0 {
                 return true
             }
@@ -774,21 +763,21 @@ public class WRPObject: NSObject {
     }
     
     
-    private func valueOfElement(element: WRPProperty, value: AnyObject) -> AnyObject {
+    fileprivate func valueOfElement(_ element: WRPProperty, value: AnyObject) -> AnyObject {
         
         switch element.elementDataType {
-        case .Int:
-            return NSNumber(integer: value as! Int)
-        case .Float:
-            return NSNumber(float: value as! Float)
-        case .Double:
-            return NSNumber(double: value as! Double)
-        case .Bool:
-            return NSNumber(bool: value as! Bool)
-        case .Date:
-            let formatter: NSDateFormatter = NSDateFormatter()
+        case .int:
+            return NSNumber(value: value as! Int as Int)
+        case .float:
+            return NSNumber(value: value as! Float as Float)
+        case .double:
+            return NSNumber(value: value as! Double as Double)
+        case .bool:
+            return NSNumber(value: value as! Bool as Bool)
+        case .date:
+            let formatter: DateFormatter = DateFormatter()
             formatter.dateFormat = element.format!
-            return formatter.stringFromDate(value as! NSDate)
+            return formatter.string(from: value as! Date) as AnyObject
         default:
             return value
         }
@@ -798,14 +787,14 @@ public class WRPObject: NSObject {
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - Convenience
     
-    public func updateWithJSONString(jsonString: String) -> Bool {
+    open func updateWithJSONString(_ jsonString: String) -> Bool {
         
         // Try to parse json data
-        if let jsonData: NSData = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true) {
+        if let jsonData: Data = jsonString.data(using: String.Encoding.utf8, allowLossyConversion: true) {
             
             // If it worked, update data of current object (dictionary is expected on root level)
             do {
-                let jsonObject: AnyObject? = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.AllowFragments)
+                let jsonObject: AnyObject? = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as AnyObject?
                 self.fillValues(jsonObject as! NSDictionary)
                 self.processClosestRelationships(jsonObject as! NSDictionary)
                 return true
@@ -819,7 +808,7 @@ public class WRPObject: NSObject {
     }
     
     
-    public func updateWithDictionary(objectData: NSDictionary) -> Bool {
+    open func updateWithDictionary(_ objectData: NSDictionary) -> Bool {
         
         // Update data of current object
         self.fillValues(objectData)
@@ -829,7 +818,7 @@ public class WRPObject: NSObject {
     }
     
     
-    public func excludeOnSerialization() -> [String] {
+    open func excludeOnSerialization() -> [String] {
         
         return []
     }
@@ -838,13 +827,13 @@ public class WRPObject: NSObject {
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - Debug
     
-    public func debugInstantiate() -> Bool {
+    open func debugInstantiate() -> Bool {
         
         return false
     }
     
     
-    override public var debugDescription: String {
+    override open var debugDescription: String {
         return "Class: \(self.self)\nContent: \(self.toDictionary().debugDescription)"
     }
 }
