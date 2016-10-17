@@ -1,4 +1,12 @@
 
+## 2.0 (2016-10-17)
+
+
+Enhancements:
+
+- Library reworked to support Swift 3.0
+- Repository structure changed to also contain legacy versions
+
 ## 1.3 (2016-07-31)
 
 
