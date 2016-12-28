@@ -23,6 +23,11 @@
 		0B0798141C3D6D2C000FA7FD /* WRPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0798101C3D6D2C000FA7FD /* WRPExtensions.swift */; };
 		0B0798151C3D6D2C000FA7FD /* WRPObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0798111C3D6D2C000FA7FD /* WRPObject.swift */; };
 		0B0798161C3D6D2C000FA7FD /* WRPStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0798121C3D6D2C000FA7FD /* WRPStructs.swift */; };
+		0B27F8BA1E13E1CF005D8E07 /* WarpTest.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B27F8B81E13E1CF005D8E07 /* WarpTest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0B27F8BE1E13E1D7005D8E07 /* WRPEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B07980F1C3D6D2C000FA7FD /* WRPEnums.swift */; };
+		0B27F8BF1E13E1D7005D8E07 /* WRPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0798101C3D6D2C000FA7FD /* WRPExtensions.swift */; };
+		0B27F8C01E13E1D7005D8E07 /* WRPObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0798111C3D6D2C000FA7FD /* WRPObject.swift */; };
+		0B27F8C11E13E1D7005D8E07 /* WRPStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0798121C3D6D2C000FA7FD /* WRPStructs.swift */; };
 		0F5A3FA2B2B792533593D406 /* Pods_WarpExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A64A92AEA27F8531800A2C /* Pods_WarpExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +50,9 @@
 		0B0798101C3D6D2C000FA7FD /* WRPExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WRPExtensions.swift; path = ../../../../../../Source/WRPExtensions.swift; sourceTree = "<group>"; };
 		0B0798111C3D6D2C000FA7FD /* WRPObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WRPObject.swift; path = ../../../../../../Source/WRPObject.swift; sourceTree = "<group>"; };
 		0B0798121C3D6D2C000FA7FD /* WRPStructs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WRPStructs.swift; path = ../../../../../../Source/WRPStructs.swift; sourceTree = "<group>"; };
+		0B27F8B61E13E1CF005D8E07 /* WarpTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WarpTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B27F8B81E13E1CF005D8E07 /* WarpTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarpTest.h; sourceTree = "<group>"; };
+		0B27F8B91E13E1CF005D8E07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BF9E6281BF2333D0055C0D8 /* Warp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Warp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DE33EE1D60E1BB1EDFB1C11 /* Pods-WarpExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WarpExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WarpExample/Pods-WarpExample.debug.xcconfig"; sourceTree = "<group>"; };
 		90A64A92AEA27F8531800A2C /* Pods_WarpExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WarpExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +60,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0B27F8B21E13E1CF005D8E07 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0BF9E6251BF2333D0055C0D8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -191,10 +206,20 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		0B27F8B71E13E1CF005D8E07 /* WarpTest */ = {
+			isa = PBXGroup;
+			children = (
+				0B27F8B81E13E1CF005D8E07 /* WarpTest.h */,
+				0B27F8B91E13E1CF005D8E07 /* Info.plist */,
+			);
+			path = WarpTest;
+			sourceTree = "<group>";
+		};
 		0BF9E61F1BF2333D0055C0D8 = {
 			isa = PBXGroup;
 			children = (
 				0B0797E11C3D67AA000FA7FD /* WarpExample */,
+				0B27F8B71E13E1CF005D8E07 /* WarpTest */,
 				0BF9E6291BF2333D0055C0D8 /* Products */,
 				368514CBD199FDB3F54AABCD /* Frameworks */,
 				3707D1B7A254E3E7E69A2BDF /* Pods */,
@@ -205,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				0BF9E6281BF2333D0055C0D8 /* Warp.app */,
+				0B27F8B61E13E1CF005D8E07 /* WarpTest.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -229,7 +255,36 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		0B27F8B31E13E1CF005D8E07 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B27F8BA1E13E1CF005D8E07 /* WarpTest.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		0B27F8B51E13E1CF005D8E07 /* WarpTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0B27F8BB1E13E1CF005D8E07 /* Build configuration list for PBXNativeTarget "WarpTest" */;
+			buildPhases = (
+				0B27F8B11E13E1CF005D8E07 /* Sources */,
+				0B27F8B21E13E1CF005D8E07 /* Frameworks */,
+				0B27F8B31E13E1CF005D8E07 /* Headers */,
+				0B27F8B41E13E1CF005D8E07 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WarpTest;
+			productName = WarpTest;
+			productReference = 0B27F8B61E13E1CF005D8E07 /* WarpTest.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		0BF9E6271BF2333D0055C0D8 /* WarpExample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0BF9E63A1BF2333D0055C0D8 /* Build configuration list for PBXNativeTarget "WarpExample" */;
@@ -258,9 +313,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Jiri Trecak";
 				TargetAttributes = {
+					0B27F8B51E13E1CF005D8E07 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
 					0BF9E6271BF2333D0055C0D8 = {
 						CreatedOnToolsVersion = 7.1;
 						LastSwiftMigration = 0820;
@@ -282,11 +341,19 @@
 			projectRoot = "";
 			targets = (
 				0BF9E6271BF2333D0055C0D8 /* WarpExample */,
+				0B27F8B51E13E1CF005D8E07 /* WarpTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0B27F8B41E13E1CF005D8E07 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0BF9E6261BF2333D0055C0D8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -364,6 +431,17 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0B27F8B11E13E1CF005D8E07 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B27F8C11E13E1D7005D8E07 /* WRPStructs.swift in Sources */,
+				0B27F8BE1E13E1D7005D8E07 /* WRPEnums.swift in Sources */,
+				0B27F8BF1E13E1D7005D8E07 /* WRPExtensions.swift in Sources */,
+				0B27F8C01E13E1D7005D8E07 /* WRPObject.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0BF9E6241BF2333D0055C0D8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -404,10 +482,66 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0B27F8BC1E13E1CF005D8E07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = WarpTest/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jiritrecak.warp.WarpTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		0B27F8BD1E13E1CF005D8E07 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = WarpTest/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jiritrecak.warp.WarpTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		0BF9E6381BF2333D0055C0D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -417,8 +551,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -452,6 +588,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -461,8 +598,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -481,6 +620,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -489,6 +629,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1DE33EE1D60E1BB1EDFB1C11 /* Pods-WarpExample.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				INFOPLIST_FILE = "$(SRCROOT)/WarpExample/Resources/Info.plist";
@@ -505,6 +646,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9FC23B4E2F4EC86B8D4ACFBB /* Pods-WarpExample.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				INFOPLIST_FILE = "$(SRCROOT)/WarpExample/Resources/Info.plist";
@@ -520,6 +662,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0B27F8BB1E13E1CF005D8E07 /* Build configuration list for PBXNativeTarget "WarpTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B27F8BC1E13E1CF005D8E07 /* Debug */,
+				0B27F8BD1E13E1CF005D8E07 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		0BF9E6231BF2333D0055C0D8 /* Build configuration list for PBXProject "WarpExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

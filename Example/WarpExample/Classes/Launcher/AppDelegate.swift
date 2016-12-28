@@ -46,33 +46,21 @@ class CSAppDelegate: UIResponder, UIApplicationDelegate {
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - Application initialization
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
         return true
     }
     
     
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         
     }
     
-    
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         
     }
     
-    
-    func applicationWillEnterForeground(application: UIApplication) {
-        
-    }
-    
-    
-    func applicationDidBecomeActive(application: UIApplication) {
-        
-    }
-    
-    
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         
     }
     

@@ -152,7 +152,7 @@ open class WRPObject: NSObject {
                     if let jsonDictionary = object as? NSDictionary, let key = jsonDictionary[modelClassTypeKey] as? String {
                         let type = modelClassTransformer(key)
                         if let type = type {
-                            let object = type.init(parameters: jsonDictionary as! NSDictionary)
+                            let object = type.init(parameters: jsonDictionary)
                             buffer.append(object)
                         }
                     }
@@ -175,7 +175,7 @@ open class WRPObject: NSObject {
             if let jsonDictionary = object as? NSDictionary, let key = jsonDictionary[modelClassTypeKey] as? String {
                 let type = modelClassTransformer(key)
                 if let type = type {
-                    let object = type.init(parameters: jsonDictionary as! NSDictionary)
+                    let object = type.init(parameters: jsonDictionary)
                     buffer.append(object)
                 }
             }
@@ -308,6 +308,7 @@ open class WRPObject: NSObject {
     }
     
     
+    @discardableResult
     fileprivate func assignDataObjectForElement(_ element: WRPRelation, parameters: NSDictionary, parentObject: WRPObject?) -> WRPObject? {
         
         switch element.relationshipType {
@@ -464,6 +465,7 @@ open class WRPObject: NSObject {
     }
     
     
+    @discardableResult
     fileprivate func setValue(_ type: WRPPropertyAssignement, value: AnyObject?, forKey key: String, optional: Bool, temporaryOptional: Bool) -> Bool {
         
         if ((optional || temporaryOptional) && value == nil) {
@@ -484,7 +486,7 @@ open class WRPObject: NSObject {
             if value is Int {
                 self.setValue(value as! NSNumber, forKey: key)
             } else if value is NSNumber {
-                self.setValue(value?.int32Value, forKey: key)
+                self.setValue(Int32(value as! NSNumber), forKey: key)
             } else {
                 self.setValue(nil, forKey: key)
             }
