@@ -42,46 +42,45 @@ class ContributorAPI {
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - Public
     
-    func getContributors(handler : (contributors : [Contributor]?, error : NSError?) -> ()) {
+    func getContributors(_ handler : @escaping (_ contributors : [Contributor]?, _ error : NSError?) -> ()) {
         
-        Alamofire.request(.GET, BASE_URL_CONTRIBUTORS, parameters: nil, encoding: ParameterEncoding.JSON, headers: nil)
-            .responseJSON { response in
+        Alamofire.request(BASE_URL_CONTRIBUTORS, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON { (response:DataResponse<Any>) in
+            if let JSON = response.result.value as? [NSDictionary] {
                 
-                if let JSON = response.result.value as? [NSDictionary] {
-                    
-                    // Create contributors
-                    var output : [Contributor] = []
-                    JSON.forEach({ (data) -> () in
-                        output.append(Contributor(fromDictionary: data))
-                    })
-                    
-                    // Notify caller
-                    handler(contributors: output, error: nil)
-                } else {
-                    handler(contributors: nil, error: response.result.error)
-                }
+                // Create contributors
+                var output : [Contributor] = []
+                JSON.forEach({ (data) -> () in
+                    output.append(Contributor(fromDictionary: data))
+                })
+                
+                // Notify caller
+                handler(output, nil)
+            } else {
+                handler(nil, response.result.error as NSError?)
+            }
         }
     }
     
     
-    func updateContributor(contributor : Contributor, handler : (contributor : Contributor?, error : NSError?) -> ()) {
+    func updateContributor(_ contributor : Contributor, handler : @escaping (_ contributor : Contributor?, _ error : NSError?) -> ()) {
         
-        Alamofire.request(.GET, contributor.detailURL, parameters: nil, encoding: ParameterEncoding.JSON, headers: nil)
-            .responseJSON { response in
+        Alamofire.request(contributor.detailURL, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON { (response:DataResponse<Any>) in
+            
+            if let JSON = response.result.value as? NSDictionary {
                 
-                if let JSON = response.result.value as? NSDictionary {
-                    
-                    // Update contributor
-                    contributor.updateWithDictionary(JSON)
+                // Update contributor
+                if contributor.updateWithDictionary(JSON) {
                     
                     // Notify caller
-                    handler(contributor: contributor, error: nil)
-                } else {
-                    handler(contributor: nil, error: response.result.error)
+                    handler(contributor, nil)
                 }
+            } else {
+                handler(nil, response.result.error as? NSError)
+            }
         }
     }
 }
+
 
 
 

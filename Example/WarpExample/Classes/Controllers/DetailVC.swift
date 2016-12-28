@@ -53,7 +53,7 @@ class DetailVC : UIViewController {
         
         super.viewDidLoad()
         self.setupUI()
-        self.updateWithContributor(self.contributor)
+        self.updateWithContributor(contributor: self.contributor)
         self.loadData()
     }
     
@@ -65,7 +65,7 @@ class DetailVC : UIViewController {
         self.contributorFollowingTitleLb.text = Localizations.DetailScreen.Stats.Following
         self.contributorReposLb.text = Localizations.DetailScreen.Stats.Repositories
         self.contributorReposLb.text = Localizations.DetailScreen.Misc.LoveNote
-        self.contributorPageBtn.setTitle(Localizations.DetailScreen.Buttons.GITHubProfile, forState: .Normal)
+        self.contributorPageBtn.setTitle(Localizations.DetailScreen.Buttons.GITHubProfile, for: .normal)
     }
     
     
@@ -76,10 +76,10 @@ class DetailVC : UIViewController {
         self.contributorFollowersLb.text = String(format: "%d", self.contributor.followers)
         self.contributorFollowingLb.text = String(format: "%d", self.contributor.following)
         self.contributorReposLb.text = String(format: "%d", self.contributor.repositories)
-        self.contributorPageBtn.enabled = self.contributor.detailURL != nil
+        self.contributorPageBtn.isEnabled = self.contributor.detailURL != nil
         
         // Set profile pictures
-        if let profilePictureURL = NSURL(string: self.contributor.avatarURL) {
+        if let profilePictureURL = URL(string: self.contributor.avatarURL) {
             self.contributorProfilePictureIV.hnk_setImageFromURL(profilePictureURL)
         }
     }
@@ -91,7 +91,7 @@ class DetailVC : UIViewController {
             
             if let contributor = contributor {
                 self.contributor = contributor
-                self.updateWithContributor(contributor)
+                self.updateWithContributor(contributor: contributor)
                 
             } else if let error = error {
                 NSLog("error %@", error.localizedDescription)
@@ -111,16 +111,14 @@ class DetailVC : UIViewController {
     // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
     // MARK: - IBActions
     
-    @IBAction func githubBtnTouchUpInside(button : UIButton) {
-    
-        if let githubURLString = self.contributor.githubURL, githubURL = NSURL(string: githubURLString) {
-            let svc = SFSafariViewController(URL: githubURL)
-            self.presentViewController(svc, animated: true, completion: nil)
+    @IBAction func githubBtnTouchUpInside(_ button : UIButton) {
+        
+        if let githubURLString = self.contributor.githubURL, let githubURL = URL(string: githubURLString) {
+            let svc = SFSafariViewController(url: githubURL)
+            self.present(svc, animated: true, completion: nil)
         }
     }
 }
-
-
 
 
 

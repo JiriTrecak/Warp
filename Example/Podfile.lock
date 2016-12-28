@@ -1,18 +1,28 @@
 PODS:
-  - Alamofire (3.1.4)
+  - Alamofire (4.2.0)
   - HanekeSwift (0.10.1)
-  - Then (1.0.3)
+  - Then (2.1.0)
 
 DEPENDENCIES:
   - Alamofire
-  - HanekeSwift
+  - HanekeSwift (from `https://github.com/Haneke/HanekeSwift.git`, branch `feature/swift-3`)
   - Then
 
+EXTERNAL SOURCES:
+  HanekeSwift:
+    :branch: feature/swift-3
+    :git: https://github.com/Haneke/HanekeSwift.git
+
+CHECKOUT OPTIONS:
+  HanekeSwift:
+    :commit: 1157a124ec699f4ad926cb054f1d0bfce88ae7a9
+    :git: https://github.com/Haneke/HanekeSwift.git
+
 SPEC CHECKSUMS:
-  Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
-  HanekeSwift: 08e47d3d0f2899ec58e5d257beba0de619aca9e8
-  Then: c2502b763132c80dfa64d325065d70c45e2d48ca
+  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  HanekeSwift: 4113367892828e7700d24a384027de6ebc79aad1
+  Then: 8496793c8fcac95482b943909b440724c7d8d82c
 
-PODFILE CHECKSUM: 6642e14e80239d0b98c8d3597c6ed43292e5b8b0
+PODFILE CHECKSUM: 7f071b69a45198414a1451a1379cf6b9de87be2c
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.1
