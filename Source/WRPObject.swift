@@ -539,8 +539,9 @@ open class WRPObject: NSObject {
     fileprivate func intFromParameters(_ parameters: NSDictionary, key: String) -> Int? {
         
         if let value: NSNumber = parameters.value(forKeyPath: key) as? NSNumber {
-            
             return Int(value)
+        } else if wrappedValue = parameters.value(forKeyPath: key) as? String, let value = Int(wrappedValue) {
+            return value
         }
         
         return nil
@@ -551,6 +552,8 @@ open class WRPObject: NSObject {
         
         if let value: NSNumber = parameters.value(forKeyPath: key) as? NSNumber {
             return Double(value)
+        } else if wrappedValue = parameters.value(forKeyPath: key) as? String, let value = Double(wrappedValue) {
+            return value
         }
         
         return nil
@@ -561,6 +564,8 @@ open class WRPObject: NSObject {
         
         if let value: NSNumber = parameters.value(forKeyPath: key) as? NSNumber {
             return Float(value)
+        } else if wrappedValue = parameters.value(forKeyPath: key) as? String, let value = Float(wrappedValue) {
+            return value
         }
         
         return nil
